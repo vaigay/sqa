@@ -1,2 +1,2 @@
-# sqa Quản lý điểm
+# sqa Quản lý điểm PTIT
 
