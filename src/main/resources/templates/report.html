@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Trang chủ</title>
+    <script type="text/javascript" src="/jquery/jquery.js"></script>
+    <link type="text/css" href="/css/bootrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+</head>
+<body>
+    <div align="center">
+        <a th:href="@{/}">Trang chủ</a><br>
+        <h1>Báo cáo</h1><br><br>
+        <form th:action = "@{/reportBy}">
+            <select name = "type">
+                <option value="All" >Báo cáo tất cả sinh viên</option>
+                <option value="Major" >Báo cáo theo Ngành học</option>
+                <option value="Course" >Báo cáo theo Khoá học</option>
+            </select>
+            <input type="submit" value="Chọn">
+        </form>
+        
+    </div>
+    </div>
+    <div>
+</body>

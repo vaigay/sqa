@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Thêm mới</title>
+	<script type="text/javascript" src="/jquery/jquery.js"></script>
+    <link type="text/css" href="/css/bootrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+</head>
+
+<body>
+	<div align="center">
+		<a th:href="@{/}">Trang chủ</a><br><br>
+		<h1>Thêm mới user</h1>
+		<br />
+		<form th:action="@{/user/saveNew}" th:object="${user}" method="post" id = "form">
+
+			<table border="0" cellpadding="10">
+				
+				<tr>
+					<td>Họ và tên:</td>
+					<td><input type="text" th:field="*{fullName}" required /></td>
+				</tr>
+				<tr>
+					<td>Ngày sinh:</td>
+					<td><input type="date" th:field="*{dateOfBirth}" id = "date" required /></td>
+				</tr>
+				<tr>
+					<td>Địa chỉ:</td>
+					<td><input type="text" th:field="*{address}" required /></td>
+				</tr>
+				<tr>
+					<td>Email:</td>
+					<td><input type="email" th:field="*{email}" required /></td>
+				</tr>
+				<tr>
+					<td>Khoá học:</td>
+					<td>
+						<select th:field="*{course.id}">
+							<option th:each="i : ${listCourse}" th:value="${i.id}" th:text="${i.name}"></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Ngành học:</td>
+					<td>
+						<select th:field="*{major.id}">
+							<option th:each="i : ${listMajor}" th:value="${i.id}" th:text="${i.nameMajor}"></option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><button class="btn btn-success" id="submitBtn">Lưu</button> </td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<script>
+		$(document).ready(function(){
+			$("#submitBtn").click(function(){
+				var t= new Date();
+				var today = new Date(t.getFullYear())
+				var inputDate = new Date($('#date').val()).getFullYear();
+				if(inputDate >= today){
+					alert("Năm sinh vô lý");
+					return false;
+				}
+				else{
+					$(("#form")).submit();
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

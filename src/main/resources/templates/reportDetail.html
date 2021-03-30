@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Trang chủ</title>
+    <script type="text/javascript" src="/jquery/jquery.js"></script>
+    <link type="text/css" href="/css/bootrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <div align="center">
+        <a th:href="@{/}">Trang chủ</a><br>
+        <h1>Báo cáo</h1>
+        <form th:action="@{/reportBy}">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Khoá học</td>
+                        <td> <select name="CourseId" value = 0>
+                                <option value="0" text="Tất cả"></option>
+                                <option th:each="i : ${listCourse}" th:value="${i.id}" th:text="${i.name}">
+                                </option>
+                            </select></td>
+                        <td>Ngành học</td>
+                        <td><select name="MajorId" value = 0>
+                                <option value="0" text="Tất cả"></option>
+                                <option th:each="i : ${listMajor}" th:value="${i.id}" th:text="${i.nameMajor}"></option>
+                            </select></td>
+                        <td><input type="submit" value="Xuất"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <a th:href="@{/reportAllUser}">Báo cáo tất cả sinh viên</a><br>
+        <div th:if="${listMess != null}">
+            <ul th:each="mess : ${listMess}">
+                <li><strong th:text="${mess}"></strong></li>
+            </ul>
+        </div>
+        <div>
+            <h1 style="text-align: center">Danh sách sinh viên</h1>
+            <table border="2" cellpadding="20">
+                <thead>
+                    <tr>
+                        <th>Mã sinh viên</th>
+                        <th>Tên</th>
+                        <th>Ngày tháng năm sinh</th>
+                        <th>Email</th>
+                        <th>Khoá học </th>
+                        <th>Chuyên ngành</th>
+                        <th>Địa chỉ</th>
+                    </tr>
+                </thead>
+                <tbody th:if="${listUser}">
+                    <tr th:each="user : ${listUser}">
+                        <td th:text="${user.code}"></td>
+                        <td th:text="${user.fullName}"></td>
+                        <td th:text="${user.dateOfBirth}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${user.course.name}"></td>
+                        <td th:text="${user.major.nameMajor}"></td>
+                        <td th:text="${user.address}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    <div>
+</body>
