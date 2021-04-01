@@ -21,7 +21,7 @@ public class Subject {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
 	private List<SubjectClass> subjectClass;
 	
-	@OneToOne(mappedBy = "subject")
+	@OneToOne(mappedBy = "subject",fetch = FetchType.LAZY)
 	private ConfigScore configScore;
 	private String name;
 	private String code;

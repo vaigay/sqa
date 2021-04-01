@@ -21,18 +21,18 @@ public class ResultOfUser {
 	private UserInClass userInClass;
 	
 	@Column(nullable = true)
-	private float attendance;
+	private Float attendance;
 	@Column(nullable = true)
-	private float test;
+	private Float test;
 	@Column(nullable = true)
-	private float practice;
+	private Float practice;
 	@Column(nullable = true)
-	private float exercise;
+	private Float exercise;
 	@Column(nullable = true)
-	private float examFinal;
+	private Float examFinal;
 	
 	
-	private float finalScore;
+	private Float finalScore;
 	private String byWord;
 	public long getId() {
 		return id;
@@ -46,40 +46,40 @@ public class ResultOfUser {
 	public void setUserInClass(UserInClass userInClass) {
 		this.userInClass = userInClass;
 	}
-	public float getAttendance() {
+	public Float getAttendance() {
 		return attendance;
 	}
-	public void setAttendance(float attendance) {
+	public void setAttendance(Float attendance) {
 		this.attendance = attendance;
 	}
-	public float getTest() {
+	public Float getTest() {
 		return test;
 	}
-	public void setTest(float test) {
+	public void setTest(Float test) {
 		this.test = test;
 	}
-	public float getPractice() {
+	public Float getPractice() {
 		return practice;
 	}
-	public void setPractice(float practice) {
+	public void setPractice(Float practice) {
 		this.practice = practice;
 	}
-	public float getExercise() {
+	public Float getExercise() {
 		return exercise;
 	}
-	public void setExercise(float exercise) {
+	public void setExercise(Float exercise) {
 		this.exercise = exercise;
 	}
-	public float getExamFinal() {
+	public Float getExamFinal() {
 		return examFinal;
 	}
-	public void setExamFinal(float examFinal) {
+	public void setExamFinal(Float examFinal) {
 		this.examFinal = examFinal;
 	}
-	public float getFinalScore() {
+	public Float getFinalScore() {
 		return finalScore;
 	}
-	public void setFinalScore(float finalScore) {
+	public void setFinalScore(Float finalScore) {
 		this.finalScore = finalScore;
 	}
 	public String getByWord() {

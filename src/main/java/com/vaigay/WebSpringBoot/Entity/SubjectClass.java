@@ -37,6 +37,7 @@ public class SubjectClass {
 	
 	private String teacher;
 	private int credits;
+	private String code;
 	public long getId() {
 		return id;
 	}
@@ -79,6 +80,12 @@ public class SubjectClass {
 	}
 	public void setConfigScore(ConfigScore configScore) {
 		this.configScore = configScore;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	

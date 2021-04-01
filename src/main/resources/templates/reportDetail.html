@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <div align="center">
-        <a th:href="@{/}">Trang chủ</a><br>
+    <div class="container">
+        <a style="text-align: center" th:href="@{/}">Trang chủ</a><br>
         <h1>Báo cáo</h1>
         <form th:action="@{/reportBy}">
             <table>
@@ -21,13 +21,13 @@
                     <tr>
                         <td>Khoá học</td>
                         <td> <select name="CourseId" value = 0>
-                                <option value="0" text="Tất cả"></option>
+                                <option value="0" >Tất cả</option>
                                 <option th:each="i : ${listCourse}" th:value="${i.id}" th:text="${i.name}">
                                 </option>
                             </select></td>
                         <td>Ngành học</td>
                         <td><select name="MajorId" value = 0>
-                                <option value="0" text="Tất cả"></option>
+                                <option value="0" >Tất cả</option>
                                 <option th:each="i : ${listMajor}" th:value="${i.id}" th:text="${i.nameMajor}"></option>
                             </select></td>
                         <td><input type="submit" value="Xuất"></td>
@@ -35,7 +35,6 @@
                 </tbody>
             </table>
         </form>
-        <a th:href="@{/reportAllUser}">Báo cáo tất cả sinh viên</a><br>
         <div th:if="${listMess != null}">
             <ul th:each="mess : ${listMess}">
                 <li><strong th:text="${mess}"></strong></li>

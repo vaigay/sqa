@@ -12,10 +12,8 @@
 </head>
 
 <body>
-    <div class = "container">
-        <div align="center">
-            <a th:href="@{/}">Trang chủ</a><br><br>
-        </div>
+    <div class="container">
+        <a style="text-align: center;" th:href="@{/}">Trang chủ</a><br><br>
         <div class="container">
             <h1 style="text-align: center">Danh sách Môn học</h1><br>
             <table class="table table-striped table-bordered">
@@ -26,11 +24,13 @@
                         <th>Số tín chỉ</th>
                     </tr>
                 </thead>
-                <tbody th:if="${listSubject}" >
+                <tbody th:if="${listSubject}">
                     <tr th:each="subject : ${listSubject}">
-                        <td th:text="${subject.code}" th:href="@{/subjectClass/{id}(id=${subject.id})}"></td>
-                        <td th:text="${subject.name}" th:href="@{/subjectClass/{id}(id=${subject.id})}"></td>
-                        <td th:text="${subject.credits}" th:href="@{/subjectClass/{id}(id=${subject.id})}"></td>
+                        <td><a th:href="@{/subjectClass/{idc}/semester/{ids}(idc=${subject.id},ids=${semester})}"
+                                th:text="${subject.code}"></a></td>
+                        <td><a th:href="@{/subjectClass/{idc}/semester/{ids}(idc=${subject.id},ids=${semester})}"
+                                th:text="${subject.name}"></a></td>
+                        <td th:text="${subject.credits}"></td>
                     </tr>
                 </tbody>
             </table>

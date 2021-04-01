@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="/jquery/jquery.js"></script>
+    <link type="text/css" href="/css/bootrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <div class = "container">
+        <a style="text-align: center;" th:href="@{/}">Trang chủ</a><br><br>
+        <p></p>
+    </div>
+    <div class="container">
+        <h1 style="text-align: center">Danh sách Lớp học</h1><br>
+        <p th:text = "'Môn học: ' + ${subject}"></p><br>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Lớp học</th>
+                    <th>Giáo viên</th>
+                    <th>Số tín chỉ</th>
+                </tr>
+            </thead>
+            <tbody th:if="${listSubjectClass}" >
+                <tr th:each="subjectClass : ${listSubjectClass}">
+                    <td ><a th:href="@{/ScoreDetail/{id}(id=${subjectClass.id})}" th:text="${subjectClass.code}" ></a></td>
+                    <td th:text = "${subjectClass.teacher}"></td>
+                    <td th:text = "${subjectClass.credits}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>

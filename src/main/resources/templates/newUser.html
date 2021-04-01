@@ -22,19 +22,19 @@
 				
 				<tr>
 					<td>Họ và tên:</td>
-					<td><input type="text" th:field="*{fullName}" required /></td>
+					<td><input type="text" th:field="*{fullName}" id = "fullName"/></td>
 				</tr>
 				<tr>
 					<td>Ngày sinh:</td>
-					<td><input type="date" th:field="*{dateOfBirth}" id = "date" required /></td>
+					<td><input type="date" th:field="*{dateOfBirth}" id = "date" /></td>
 				</tr>
 				<tr>
 					<td>Địa chỉ:</td>
-					<td><input type="text" th:field="*{address}" required /></td>
+					<td><input type="text" th:field="*{address}" id = "address" /></td>
 				</tr>
 				<tr>
 					<td>Email:</td>
-					<td><input type="email" th:field="*{email}" required /></td>
+					<td><input type="email" th:field="*{email}" id = "email" /></td>
 				</tr>
 				<tr>
 					<td>Khoá học:</td>
@@ -61,6 +61,10 @@
 	<script>
 		$(document).ready(function(){
 			$("#submitBtn").click(function(){
+				if($('#fullName').val() == '' || $('#date').val() == '' || $('#address').val() == '' || $('#email').val() == '' ){
+					alert("Không được bỏ trống thông tin");
+					return false;
+				}
 				var t= new Date();
 				var today = new Date(t.getFullYear())
 				var inputDate = new Date($('#date').val()).getFullYear();

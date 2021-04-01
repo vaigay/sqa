@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.vaigay.WebSpringBoot.Entity.User;
 
-public interface UserRespository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<User, Long>{
 	
 	List<User> findByCodeContaining(String code);
 	

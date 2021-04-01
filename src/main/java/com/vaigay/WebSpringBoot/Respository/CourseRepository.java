@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.vaigay.WebSpringBoot.Entity.Course;
 
-public interface CourseRespository  extends JpaRepository<Course, Long>{
+public interface CourseRepository  extends JpaRepository<Course, Long>{
 	
 	@Query("SELECT course.name FROM Course course WHERE course.id = :id")
 	String findNameCourseByID(@Param("id") long id);

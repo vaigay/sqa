@@ -8,68 +8,68 @@ import org.springframework.stereotype.Service;
 import com.vaigay.WebSpringBoot.Entity.Course;
 import com.vaigay.WebSpringBoot.Entity.Major;
 import com.vaigay.WebSpringBoot.Entity.User;
-import com.vaigay.WebSpringBoot.Respository.CourseRespository;
-import com.vaigay.WebSpringBoot.Respository.MajorRespository;
-import com.vaigay.WebSpringBoot.Respository.UserRespository;
+import com.vaigay.WebSpringBoot.Respository.CourseRepository;
+import com.vaigay.WebSpringBoot.Respository.MajorRepository;
+import com.vaigay.WebSpringBoot.Respository.UserRepository;
 
 @Service
 public class ServiceUserController {
 	@Autowired
-	private CourseRespository courseRespository;
+	private CourseRepository courseRepository;
 	
 	@Autowired
-	private MajorRespository majorRespository;
+	private MajorRepository majorRepository;
 	
 	@Autowired
-	private UserRespository userRespository;
+	private UserRepository userRepository;
 	
 	public List<Course> listAllCourse(){
-		return courseRespository.findAll();
+		return courseRepository.findAll();
 	}
 	
 	public List<Major> listAllMajor(){
-		return majorRespository.findAll();
+		return majorRepository.findAll();
 	}
 	
 	public void updateUser(User user) {
-		String c = courseRespository.findNameCourseByID(user.getCourse().getId());
+		String c = courseRepository.findNameCourseByID(user.getCourse().getId());
 		String course = c.replaceFirst("D","B");
 		StringBuilder b = new StringBuilder();
 		b.append(course);
 		//System.out.println(user.getMajor().getId());
-		String shortName = majorRespository.findShortNameMajorByID(user.getMajor().getId());
+		String shortName = majorRepository.findShortNameMajorByID(user.getMajor().getId());
 		//System.out.println(shortName);
 		b.append(shortName);
 		b.append(user.getId());
 		user.setCode(b.toString());
-		userRespository.save(user);
+		userRepository.save(user);
 		System.out.println(user);
 	}
 	
 	public void saveUser(User user) {
-		userRespository.save(user);
+		userRepository.save(user);
 		updateUser(user);
 	}
 	
 	public List<User> getListUserByCode(String code){
-		return userRespository.findByCodeContaining(code);
+		return userRepository.findByCodeContaining(code);
 	}
 	
 	public User getUserById(long id) {
-		return userRespository.getOne(id);
+		return userRepository.getOne(id);
 	}
 	
 	public void deleteUser(long id) {
-		userRespository.deleteById(id);
+		userRepository.deleteById(id);
 	}
 	
 	public List<User> getAllUser(){
-		return userRespository.findAll();
+		return userRepository.findAll();
 	}
 	
 //	public void test(String name) {
 //		Course c = new Course();
 //		c.setName(name);
-//		courseRespository.save(c);
+//		courseRepository.save(c);
 //	}
 }
