@@ -2,7 +2,10 @@ package com.vaigay.WebSpringBoot.Respository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -10,28 +13,41 @@ import com.vaigay.WebSpringBoot.Entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 	
-	List<User> findByCodeContaining(String code);
+	List<User> findByCodeContainingAndStatus(String code,int status);
 	
-	@Query("SELECT count(u) FROM User u WHERE u.major.id = :id")
-	int countByMajorId(@Param("id") long id);
+//	@Query("SELECT count(u) FROM User u WHERE u.major.id = :id")
+	int countByMajorIdAndStatus(long id,int status);
 	
-	@Query("SELECT count(u) FROM User u WHERE u.course.id = :id")
-	int countByCourseId(@Param("id") long id);
+//	@Query("SELECT count(u) FROM User u WHERE u.course.id = :id")
+	int countByCourseIdAndStatus(long id,int status);
 	
-//	@Query("SELECT count(u) FROM User u WHERE u.major.id = :id1 AND u.course.id = :id2")
-//	int countUserInMajorAndCourse(@Param("id1") long idMajor,@Param("id2") long idCourse);
+	@Transactional
+	@Modifying
+	@Query("UPDATE User u set u.code = :code WHERE u.id = :id")
+	void updateCodeUser(@Param("id") long id, @Param("code") String code);
 	
-	@Query("SELECT DISTINCT u.course.name, count(u) FROM User u WHERE u.major.id = :id ")
-	List<Object[]> countAllUserAndCourseByMajor(@Param("id") long id);
+	@Transactional
+	@Modifying
+	@Query("UPDATE User u set u.status = :status WHERE u.id = :id")
+	void updateStatus(@Param("id") long id, @Param("status") int status);
 	
-	@Query("SELECT DISTINCT u.major.nameMajor, count(u) FROM User u WHERE u.course.id = :id ")
-	List<Object[]> countAllUserAndMajorByCourse(@Param("id") long id);
+	@Query("SELECT u.course.name, count(u.course.name) FROM User u WHERE u.major.id = :id AND u.status = :status GROUP BY u.course.name")
+	List<Object[]> countAllUserAndCourseByMajorAndStatus(@Param("id") long id,@Param("status") int status);
 	
-	List<User> findByMajorId(long idMajor);
+	@Query("SELECT u.major.nameMajor, count(u.major.nameMajor) FROM User u WHERE u.course.id = :id AND u.status = :status GROUP BY u.major.nameMajor")
+	List<Object[]> countAllUserAndMajorByCourseAndStatus(@Param("id") long id, @Param("status") int status);
 	
-	List<User> findByCourseId(long idCourse);
+	List<User> findByMajorIdAndStatus(long idMajor,int status);
+	
+	List<User> findByCourseIdAndStatus(long idCourse,int status);
 
-	List<User> findByMajorIdAndCourseId(long idMajor,long idCourse);
+	List<User> findByMajorIdAndCourseIdAndStatus(long idMajor,long idCourse,int status);
 	
-	int	countByMajorIdAndCourseId(long idMajor,long idCourse);
+	int	countByMajorIdAndCourseIdAndStatus(long idMajor,long idCourse,int status);
+	
+	List<User> findByStatus(int status);
+	
+	
+	@Query("SELECT COUNT(u) FROM User u WHERE u.status = :status")
+	int countWithStatus(@Param("status") int status);
 }

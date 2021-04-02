@@ -69,6 +69,12 @@
 					alert("Không được bỏ trống thông tin");
 					return false;
 				}
+
+				if(!isEmail($('#email').val())){
+					alert("Email không đúng định dạng");
+					return false;
+				}
+				
 				var t= new Date();
 				var today = new Date(t.getFullYear())
 				var inputDate = new Date($('#date').val()).getFullYear();
@@ -80,6 +86,11 @@
 					$(("#form")).submit();
 				}
 			});
+
+			function isEmail(email) {
+				var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+				return regex.test(email);
+			}
 		});
 	</script>
 </body>

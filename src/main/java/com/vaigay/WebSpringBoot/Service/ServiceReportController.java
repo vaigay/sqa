@@ -25,7 +25,7 @@ public class ServiceReportController {
 	private UserRepository userRepository;
 	
 	public List<User> getAllUser(){
-		return userRepository.findAll();
+		return userRepository.findByStatus(1);
 	}
 	
 	public List<Major> getAllMajor(){
@@ -39,16 +39,16 @@ public class ServiceReportController {
 	public List<String> getReportAllMess(){
 		List<String> listMess = new ArrayList<String>();
 		listMess.add("Báo cáo tổng");
-		String countAll = "Tổng số sinh viên: " + userRepository.count();
+		String countAll = "Tổng số sinh viên hiện có: " + userRepository.countWithStatus(1);
 		listMess.add(countAll);
 		List<Course> listCourses =  courseRepository.findAll();
 		for(Course tmp : listCourses) {
-			String countCourse = "Sinh viên khoá " + tmp.getName() + ": " + userRepository.countByCourseId(tmp.getId());
+			String countCourse = "Sinh viên khoá " + tmp.getName() + ": " + userRepository.countByCourseIdAndStatus(tmp.getId(),1);
 			listMess.add(countCourse);
 		}
 		List<Major> listMajors = majorRepository.findAll();
 		for(Major tmp : listMajors) {
-			String countMajor = "Sinh viên ngành " + tmp.getNameMajor() + ": " + userRepository.countByMajorId(tmp.getId());
+			String countMajor = "Sinh viên ngành " + tmp.getNameMajor() + ": " + userRepository.countByMajorIdAndStatus(tmp.getId(),1);
 			listMess.add(countMajor);
 		}
 		return listMess;
@@ -71,15 +71,15 @@ public class ServiceReportController {
 		List<String> listMess = new ArrayList<String>();
 		String add = "Số sinh viên của khoá " + courseRepository.getOne(courseId).getName();
 		add = add + " Chuyên ngành " + majorRepository.getOne(majorId).getNameMajor() +": ";
-		add = add + userRepository.countByMajorIdAndCourseId(majorId, courseId);
+		add = add + userRepository.countByMajorIdAndCourseIdAndStatus(majorId, courseId,1);
 		listMess.add(add);
 		return listMess;
 	}
 
 	public List<String> getMessCourse(long courseId) {
 		List<String> listMess = new ArrayList<String>();
-		listMess.add("Báo cáo số sinh viên của khoá " + courseRepository.getOne(courseId).getName() + ": " + userRepository.countByCourseId(courseId));
-		List<Object[]> result = userRepository.countAllUserAndMajorByCourse(courseId);
+		listMess.add("Báo cáo số sinh viên của khoá " + courseRepository.getOne(courseId).getName() + ": " + userRepository.countByCourseIdAndStatus(courseId,1));
+		List<Object[]> result = userRepository.countAllUserAndMajorByCourseAndStatus(courseId,1);
 		for(Object[] tmp : result) {
 			int quantity = Integer.parseInt(tmp[1].toString());
 			if(quantity > 0) {
@@ -92,8 +92,8 @@ public class ServiceReportController {
 
 	public List<String> getMessMajor(long majorId) {
 		List<String> listMess = new ArrayList<String>();
-		listMess.add("Báo cáo số sinh viên của ngành " + majorRepository.getOne(majorId).getNameMajor() + ": " + userRepository.countByMajorId(majorId));
-		List<Object[]> result = userRepository.countAllUserAndCourseByMajor(majorId);
+		listMess.add("Báo cáo số sinh viên của ngành " + majorRepository.getOne(majorId).getNameMajor() + ": " + userRepository.countByMajorIdAndStatus(majorId,1));
+		List<Object[]> result = userRepository.countAllUserAndCourseByMajorAndStatus(majorId,1);
 		for(Object[] tmp : result) {
 			int quantity = Integer.parseInt(tmp[1].toString());
 			if(quantity > 0) {
@@ -106,11 +106,11 @@ public class ServiceReportController {
 	
 	public List<User> getUserByField(long courseId, long majorId){
 		if(courseId != 0 && majorId != 0) 
-			return userRepository.findByMajorIdAndCourseId(majorId,courseId);
+			return userRepository.findByMajorIdAndCourseIdAndStatus(majorId,courseId,1);
 		if(courseId != 0)
-			return userRepository.findByCourseId(courseId);
+			return userRepository.findByCourseIdAndStatus(courseId,1);
 		if(majorId != 0)
-			return userRepository.findByMajorId(majorId);
+			return userRepository.findByMajorIdAndStatus(majorId,1);
 		return userRepository.findAll();
 	}
 }

@@ -32,6 +32,7 @@ public class User {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "major_id")
 	private Major major;
+	private int status;
 
 	public long getId() {
 		return id;
@@ -101,6 +102,14 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", fullName=" + fullName + ", code=" + code + ", dateOfBirth=" + dateOfBirth
 				 + ", address=" + address + ", email=" + email + "]";
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 }

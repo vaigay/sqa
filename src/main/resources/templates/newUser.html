@@ -5,10 +5,10 @@
 	<meta charset="utf-8" />
 	<title>Thêm mới</title>
 	<script type="text/javascript" src="/jquery/jquery.js"></script>
-    <link type="text/css" href="/css/bootrap.min.css">
-    <link rel="stylesheet" href="/css/bootstrap.css">
-    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/js/bootstrap.js"></script>
+	<link type="text/css" href="/css/bootrap.min.css">
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/bootstrap.js"></script>
 </head>
 
 <body>
@@ -16,25 +16,25 @@
 		<a th:href="@{/}">Trang chủ</a><br><br>
 		<h1>Thêm mới user</h1>
 		<br />
-		<form th:action="@{/user/saveNew}" th:object="${user}" method="post" id = "form">
+		<form th:action="@{/user/saveNew}" th:object="${user}" method="post" id="form">
 
 			<table border="0" cellpadding="10">
-				
+
 				<tr>
 					<td>Họ và tên:</td>
-					<td><input type="text" th:field="*{fullName}" id = "fullName"/></td>
+					<td><input type="text" th:field="*{fullName}" id="fullName" /></td>
 				</tr>
 				<tr>
 					<td>Ngày sinh:</td>
-					<td><input type="date" th:field="*{dateOfBirth}" id = "date" /></td>
+					<td><input type="date" th:field="*{dateOfBirth}" id="date" /></td>
 				</tr>
 				<tr>
 					<td>Địa chỉ:</td>
-					<td><input type="text" th:field="*{address}" id = "address" /></td>
+					<td><input type="text" th:field="*{address}" id="address" /></td>
 				</tr>
 				<tr>
 					<td>Email:</td>
-					<td><input type="email" th:field="*{email}" id = "email" /></td>
+					<td><input type="email" th:field="*{email}" id="email" /></td>
 				</tr>
 				<tr>
 					<td>Khoá học:</td>
@@ -59,23 +59,32 @@
 		</form>
 	</div>
 	<script>
-		$(document).ready(function(){
-			$("#submitBtn").click(function(){
-				if($('#fullName').val() == '' || $('#date').val() == '' || $('#address').val() == '' || $('#email').val() == '' ){
+		$(document).ready(function () {
+			$("#submitBtn").click(function () {
+				if ($('#fullName').val() == '' || $('#date').val() == '' || $('#address').val() == '' || $('#email').val() == '') {
 					alert("Không được bỏ trống thông tin");
 					return false;
 				}
-				var t= new Date();
+				if(!isEmail($('#email').val())){
+					alert("Email không đúng định dạng");
+					return false;
+				}
+				var t = new Date();
 				var today = new Date(t.getFullYear())
 				var inputDate = new Date($('#date').val()).getFullYear();
-				if(inputDate >= today){
+				if (inputDate >= today) {
 					alert("Năm sinh vô lý");
 					return false;
 				}
-				else{
+				else {
 					$(("#form")).submit();
 				}
-			});
+			})
+
+			function isEmail(email) {
+				var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+				return regex.test(email);
+			}
 		});
 	</script>
 </body>

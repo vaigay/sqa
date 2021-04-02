@@ -44,6 +44,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/saveNew",method = RequestMethod.POST)
 	public String saveUser(@ModelAttribute("user") User user) {
+		user.setStatus(1);
 		service.saveUser(user);
 //		System.out.println("???");
 		return "redirect:/listUser";

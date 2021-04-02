@@ -2,6 +2,8 @@ package com.vaigay.WebSpringBoot.Service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,8 +43,7 @@ public class ServiceUserController {
 		//System.out.println(shortName);
 		b.append(shortName);
 		b.append(user.getId());
-		user.setCode(b.toString());
-		userRepository.save(user);
+		userRepository.updateCodeUser(user.getId(), b.toString());
 		System.out.println(user);
 	}
 	
@@ -52,7 +53,7 @@ public class ServiceUserController {
 	}
 	
 	public List<User> getListUserByCode(String code){
-		return userRepository.findByCodeContaining(code);
+		return userRepository.findByCodeContainingAndStatus(code,1);
 	}
 	
 	public User getUserById(long id) {
@@ -60,11 +61,11 @@ public class ServiceUserController {
 	}
 	
 	public void deleteUser(long id) {
-		userRepository.deleteById(id);
+		userRepository.updateStatus(id,(int)0);
 	}
 	
 	public List<User> getAllUser(){
-		return userRepository.findAll();
+		return userRepository.findByStatus((int)1);
 	}
 	
 //	public void test(String name) {
