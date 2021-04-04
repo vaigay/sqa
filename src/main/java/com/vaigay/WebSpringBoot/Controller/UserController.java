@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vaigay.WebSpringBoot.Entity.User;
-import com.vaigay.WebSpringBoot.Service.ServiceUserController;
+import com.vaigay.WebSpringBoot.Service.ServiceUser;
 
 @Controller
 public class UserController {
 	@Autowired
-	private ServiceUserController service;
+	private ServiceUser service;
 	
 	@RequestMapping("/")
 	public String homePage() {
@@ -43,16 +44,19 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/user/saveNew",method = RequestMethod.POST)
-	public String saveUser(@ModelAttribute("user") User user) {
+	public String saveUser(@ModelAttribute("user") User user,RedirectAttributes reAttributes) {
 		user.setStatus(1);
+		reAttributes.addFlashAttribute("mess", "Lưu thành công!");
 		service.saveUser(user);
 //		System.out.println("???");
 		return "redirect:/listUser";
 	}
 	
 	@RequestMapping(value = "/saveEditUser",method = RequestMethod.POST)
-	public String saveEditUser(@ModelAttribute("user") User user) {
+	public String saveEditUser(@ModelAttribute("user") User user, RedirectAttributes reAttributes) {
+		user.setStatus(1);
 		service.updateUser(user);
+		reAttributes.addFlashAttribute("mess", "Sửa thành công!");
 		return "redirect:/listUser";
 	}
 	

@@ -17,10 +17,10 @@ public class ConfigScoreDetail {
 	private long id;
 	
 	private String name;
-	private String percent;
+	private int percent;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "configSocre_id")
+	@JoinColumn(name = "configSocre_id", updatable = true, insertable = true)
 	private ConfigScore configScore;
 
 	public long getId() {
@@ -39,11 +39,11 @@ public class ConfigScoreDetail {
 		this.name = name;
 	}
 
-	public String getPercent() {
+	public int getPercent() {
 		return percent;
 	}
 
-	public void setPercent(String percent) {
+	public void setPercent(int percent) {
 		this.percent = percent;
 	}
 

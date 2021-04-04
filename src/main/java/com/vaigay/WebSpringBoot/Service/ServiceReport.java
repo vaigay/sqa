@@ -14,7 +14,7 @@ import com.vaigay.WebSpringBoot.Respository.MajorRepository;
 import com.vaigay.WebSpringBoot.Respository.UserRepository;
 
 @Component
-public class ServiceReportController {
+public class ServiceReport {
 	@Autowired
 	private CourseRepository courseRepository;
 	

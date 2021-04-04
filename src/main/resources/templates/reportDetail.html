@@ -14,9 +14,9 @@
 <body>
     <div class="container">
         <a style="text-align: center" th:href="@{/}">Trang chủ</a><br>
-        <h1>Báo cáo</h1>
+        <h1 style="text-align: center;">Báo cáo</h1>
         <form th:action="@{/reportBy}">
-            <table>
+            <table >
                 <tbody>
                     <tr>
                         <td>Khoá học</td>
@@ -42,7 +42,7 @@
         </div>
         <div>
             <h1 style="text-align: center">Danh sách sinh viên</h1>
-            <table border="2" cellpadding="20">
+            <table class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>Mã sinh viên</th>

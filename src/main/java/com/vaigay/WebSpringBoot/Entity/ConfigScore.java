@@ -2,12 +2,12 @@ package com.vaigay.WebSpringBoot.Entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -19,16 +19,14 @@ public class ConfigScore {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@OneToMany(mappedBy = "configScore",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "configScore",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<ConfigScoreDetail> listConfig;
 	
-	@OneToOne
-	@JoinColumn(name ="subject_id")
+	@OneToOne(mappedBy = "configScore")
 	private Subject subject;
 	
 	@OneToMany(mappedBy = "configScore",fetch = FetchType.LAZY)
-	private List<SubjectClass> subjectClass;
-	private int status;
+	private List<SubjectClass> subjectClass;;
 	public long getId() {
 		return id;
 	}
@@ -48,12 +46,6 @@ public class ConfigScore {
 		this.subject = subject;
 	}
 	
-	public int getStatus() {
-		return status;
-	}
-	public void setStatus(int status) {
-		this.status = status;
-	}
 	public List<SubjectClass> getSubjectClass() {
 		return subjectClass;
 	}

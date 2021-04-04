@@ -11,14 +11,12 @@ import com.vaigay.WebSpringBoot.Entity.ConfigScoreDetail;
 import com.vaigay.WebSpringBoot.Entity.Semester;
 import com.vaigay.WebSpringBoot.Entity.Subject;
 import com.vaigay.WebSpringBoot.Entity.SubjectClass;
-import com.vaigay.WebSpringBoot.Entity.UserInClass;
 import com.vaigay.WebSpringBoot.Respository.SemesterRepository;
 import com.vaigay.WebSpringBoot.Respository.SubjectClassRepository;
 import com.vaigay.WebSpringBoot.Respository.SubjectRepository;
-import com.vaigay.WebSpringBoot.Respository.UserInClassRepository;
 
 @Service
-public class ServiceScoreController {
+public class ServiceScore {
 	
 	@Autowired
 	private SemesterRepository semesterRepository;
@@ -29,8 +27,6 @@ public class ServiceScoreController {
 	@Autowired
 	private SubjectClassRepository suClassRepository;
 	
-	@Autowired
-	private UserInClassRepository userInClassRepository;
 	
 	public List<Semester> getAllSemester(){
 		return semesterRepository.findAll();

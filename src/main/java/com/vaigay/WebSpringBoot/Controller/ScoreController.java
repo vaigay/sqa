@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.vaigay.WebSpringBoot.Entity.ConfigScore;
 import com.vaigay.WebSpringBoot.Entity.SubjectClass;
 import com.vaigay.WebSpringBoot.Entity.UserInClass;
-import com.vaigay.WebSpringBoot.Service.ServiceScoreController;
+import com.vaigay.WebSpringBoot.Service.ServiceScore;
 
 @Controller
 public class ScoreController {
 	
 	@Autowired
-	private ServiceScoreController ser;
+	private ServiceScore ser;
 	
 	
 	//Xem các học kỳ

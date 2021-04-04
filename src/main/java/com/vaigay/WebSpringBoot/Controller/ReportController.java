@@ -6,13 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.vaigay.WebSpringBoot.Service.ServiceReportController;
+import com.vaigay.WebSpringBoot.Service.ServiceReport;
 
 @Controller
 public class ReportController {
 	
 	@Autowired
-	private ServiceReportController service;
+	private ServiceReport service;
 	
 	@RequestMapping("/report")
 	public String viewReportPage(Model model) {

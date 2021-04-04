@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="/jquery/jquery.js"></script>
+    <link type="text/css" href="/css/bootrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+</head>
+<style>
+    input:read-only {
+        background-color: grey;
+    }
+</style>
+
+<body>
+    <div align="center">
+        <a th:href="@{/}">Trang chủ</a><br><br>
+        <a th:href="@{/config}">Cấu hình môn học khác</a><br><br>
+        <h1>Ràng buộc</h1>
+        <ul>
+            <li>Tổng phần trăm bằng 100</li>
+            <li>Phần trăm điểm thành phần là các số nguyên dương</li>
+            <li>Không có điểm thành phần phần trăm nào nhỏ hơn 1 và lớn hơn 100</li>
+            <li><strong>Nếu đầu điểm nào không có trong môn học thì để trống</strong></li>
+        </ul>
+        <h1 style="text-align: center">Cấu hình chi tiết</h1>
+        <th:block th:if="${mess}">
+            <p id="mess" style="background-color:greenyellow; font-size: 25px;" th:text="${mess}"></p>
+        </th:block>
+        <form th:action="@{/saveConfig}" method="POST" id="formData">
+            <input hidden th:value = "${idSubject}" name = "idSubject">
+            <table border="0" cellpadding="10">
+                <tr>
+                    <td>Tên đầu điểm</td>
+                    <td>Phần trăm (%) </td>
+                </tr>
+                <th:block th:if="${attendance}">
+                    <tr>
+                        <td>Chuyên cần</td>
+                        <td><input name = "attendance" id="attendance" type="number" th:value="${attendance}" readonly="readonly" min="1"
+                                max="100" oninput="validity.valid||(value='');"></td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${attendance}">
+                    <tr style="display: none;" class="nullValue">
+                        <td>Chuyên cần</td>
+                        <td><input name = "attendance" id="attendance" type="number" min="1" max="100"
+                                oninput="validity.valid||(value='');"></td>
+                    </tr>
+                </th:block>
+                <th:block th:if="${test != null}">
+                    <tr>
+                        <td>Kiểm tra</td>
+                        <td><input name = "test" id="test" type="number" th:value="${test}" readonly="readonly" min="1" max="100"
+                            oninput="validity.valid||(value='');">
+                        </td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${test}">
+                    <tr style="display: none;" class="nullValue">
+                        <td>Kiểm tra</td>
+                        <td><input name = "test" id="test" type="number" min="1" max="100" oninput="validity.valid||(value='');"></td>
+                    </tr>
+                </th:block>
+                <th:block th:if="${practice}">
+                    <tr>
+                        <td>Thực hành</td>
+                        <td><input name  = "practice" id="practice" type="number" th:value="${practice}" readonly="readonly" min="1"
+                                max="100" oninput="validity.valid||(value='');"> </td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${practice}">
+                    <tr style="display: none;" class="nullValue">
+                        <td>Thực hành</td>
+                        <td><input  name  = "practice" id="practice" type="number" min="1" max="100" oninput="validity.valid||(value='');">
+                        </td>
+                    </tr>
+                </th:block>
+                <th:block th:if="${exercise}">
+                    <tr>
+                        <td>Bài tập</td>
+                        <td><input name = "exercise" id="exercise" type="number" th:value="${exercise}" readonly="readonly" min="1"
+                                max="100" oninput="validity.valid||(value='');"> </td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${exercise}">
+                    <tr style="display: none;" class="nullValue">
+                        <td>Bài tập</td>
+                        <td><input name = "exercise" id="exercise" type="number" min="1" max="100" oninput="validity.valid||(value='');">
+                        </td>
+                    </tr>
+                </th:block>
+                <th:block th:if="${examFinal}">
+                    <tr>
+                        <td>Thi</td>
+                        <td><input name = "examFinal"id="examFinal" type="number" th:value="${examFinal}" readonly="readonly" min="1"
+                                max="100" oninput="validity.valid||(value='');"> </td>
+                    </tr>
+                </th:block>
+                <th:block th:unless="${examFinal}">
+                    <tr style="display: none;" class="nullValue">
+                        <td>Thi</td>
+                        <td><input name = "examFinal" id="examFinal" type="number" min="1" max="100" oninput="validity.valid||(value='');">
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+        </form>
+        <br>
+        <div style="display:none;" id="mod">
+            <button id="Cancel" class="btn btn-danger">Huỷ</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="Save" class="btn btn-success">Lưu</button>
+        </div>
+        <div>
+            <button id="View" class="btn btn-info">Cấu hình</button>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#mess").fadeOut(3000);
+            // $(".nullValue").hide();
+            // $("#Cancel").hide();
+            // $("#Save").hide();
+            // $("#id").css("display", "none");
+            // $("#id").css("display", "block");
+            var attendance = $("#attendance").val();
+            var test = $("#test").val();
+            var exercise = $("#exercise").val();
+            var practice = $("#practice").val();
+            var examFinal = $("#examFinal").val();
+
+            $("#View").click(function () {
+                $(".nullValue").css("display", "table-row");
+                $("#View").css("display", "none");
+                $("#mod").css("display", "table-row");
+                $("input").attr('readonly', false);
+
+            });
+
+            $("#Cancel").click(function () {
+                $(".nullValue").css("display", "none");
+                $("#View").css("display", "table-row");
+                $("#mod").css("display", "none");
+                $("input").attr('readonly', true);
+                $("#attendance").val(attendance);
+                $("#test").val(test);
+                $("#exercise").val(exercise);
+                $("#practice").val(practice);
+                $("#examFinal").val(examFinal);
+            });
+
+            $("#Save").click(function () {
+                var total = 0;
+                if($("#attendance").val())
+                    total += parseInt($("#attendance").val());
+                
+                if($("#test").val())
+                    total += parseInt($("#test").val());
+                
+                if($("#exercise").val())
+                    total += parseInt($("#exercise").val());
+                
+                if($("#practice").val())
+                    total += parseInt($("#practice").val());
+                
+                if($("#examFinal").val())
+                    total += parseInt($("#examFinal").val());
+                
+                console.log(parseInt($("#attendance").val()));
+                console.log(parseInt($("#test").val()));
+                console.log(parseInt($("#exercise").val()));
+                console.log(parseInt($("#practice").val()));
+                console.log(parseInt($("#examFinal").val()));
+                console.log(total)
+                if(total != 100){
+                    alert("Tổng các hệ số điểm không bằng 100!");
+                    return false;
+                }
+                else{
+                    $("#formData").submit();
+                }
+            })
+
+        })
+    </script>
+</body>
