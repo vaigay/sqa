@@ -13,7 +13,10 @@
 
 <body>
     <div class="container">
-        <a th:href="@{/}">Trang chủ</a><br><br>
+        <div align="center">
+            <a th:href="@{/}">Trang chủ</a><br><br>
+        </div>
+
         <h1 style="text-align: center">Danh sách môn học cấu hình</h1>
         <table class="table table-striped table-bordered">
             <thead>
@@ -25,10 +28,8 @@
             </thead>
             <tbody th:if="${listSubject}">
                 <tr th:each="subject : ${listSubject}">
-                    <td><a th:href="@{/subjectConfig/{id}(id=${subject.id})}"
-                            th:text="${subject.code}"></a></td>
-                    <td><a th:href="@{/subjectConfig/{id}(id=${subject.id})}"
-                            th:text="${subject.name}"></a></td>
+                    <td><a th:href="@{/subjectConfig/{id}(id=${subject.id})}" th:text="${subject.code}"></a></td>
+                    <td><a th:href="@{/subjectConfig/{id}(id=${subject.id})}" th:text="${subject.name}"></a></td>
                     <td th:text="${subject.credits}"></td>
                 </tr>
             </tbody>

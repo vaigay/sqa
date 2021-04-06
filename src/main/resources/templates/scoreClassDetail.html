@@ -12,8 +12,10 @@
 </head>
 
 <body>
-    <div class = "container">
-        <a style="text-align: center;" th:href="@{/}">Trang chủ</a><br><br>
+    <div class="container">
+        <div align="center">
+            <a style="text-align: center;" th:href="@{/}">Trang chủ</a><br><br>
+        </div>
         <div class="container">
             <h1 style="text-align: center">Điểm của lớp</h1>
             <table class="table table-striped table-bordered" th:if="${listTableHeader}">
@@ -23,8 +25,8 @@
                         <th>Tên</th>
                         <th>Ngày tháng năm sinh</th>
                         <th:block th:each="head : ${listTableHeader}">
-                            <th th:text = "${head}"></th>
-                        </th:block> 
+                            <th th:text="${head}"></th>
+                        </th:block>
                         <th>Tổng kết</th>
                         <th>Xếp loại</th>
                     </tr>
@@ -34,19 +36,19 @@
                         <td th:text="${result.user.code}"></td>
                         <td th:text="${result.user.fullName}"></td>
                         <td th:text="${result.user.dateOfBirth}"></td>
-                        <th:block th:if = "${result.resultOfUser.attendance != null}">
+                        <th:block th:if="${result.resultOfUser.attendance != null}">
                             <td th:text="${result.resultOfUser.attendance} "></td>
                         </th:block>
-                        <th:block th:if = "${result.resultOfUser.test != null}">
+                        <th:block th:if="${result.resultOfUser.test != null}">
                             <td th:text="${result.resultOfUser.test} "></td>
                         </th:block>
-                        <th:block th:if = "${result.resultOfUser.practice != null}">
+                        <th:block th:if="${result.resultOfUser.practice != null}">
                             <td th:text="${result.resultOfUser.practice} "></td>
                         </th:block>
-                        <th:block th:if = "${result.resultOfUser.exercise != null}">
+                        <th:block th:if="${result.resultOfUser.exercise != null}">
                             <td th:text="${result.resultOfUser.exercise} "></td>
                         </th:block>
-                        <th:block th:if = "${result.resultOfUser.examFinal != null}">
+                        <th:block th:if="${result.resultOfUser.examFinal != null}">
                             <td th:text="${result.resultOfUser.examFinal} "></td>
                         </th:block>
                         <td th:text="${result.resultOfUser.finalScore} "></td>

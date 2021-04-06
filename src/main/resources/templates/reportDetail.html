@@ -13,21 +13,23 @@
 
 <body>
     <div class="container">
-        <a style="text-align: center" th:href="@{/}">Trang chủ</a><br>
+        <div align="center">
+            <a th:href="@{/}">Trang chủ</a><br>
+        </div>
         <h1 style="text-align: center;">Báo cáo</h1>
         <form th:action="@{/reportBy}">
-            <table >
+            <table>
                 <tbody>
                     <tr>
                         <td>Khoá học</td>
-                        <td> <select name="CourseId" value = 0>
-                                <option value="0" >Tất cả</option>
+                        <td> <select name="CourseId" value=0>
+                                <option value="0">Tất cả</option>
                                 <option th:each="i : ${listCourse}" th:value="${i.id}" th:text="${i.name}">
                                 </option>
                             </select></td>
                         <td>Ngành học</td>
-                        <td><select name="MajorId" value = 0>
-                                <option value="0" >Tất cả</option>
+                        <td><select name="MajorId" value=0>
+                                <option value="0">Tất cả</option>
                                 <option th:each="i : ${listMajor}" th:value="${i.id}" th:text="${i.nameMajor}"></option>
                             </select></td>
                         <td><input type="submit" value="Xuất"></td>
