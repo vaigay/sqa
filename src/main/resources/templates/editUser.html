@@ -83,7 +83,10 @@
 					return false;
 				}
 				else{
-					$(("#form")).submit();
+					if(confirm("Bạn có chắc muốn lưu"))
+						$(("#form")).submit();
+					else
+						return false;
 				}
 			});
 

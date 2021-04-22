@@ -15,7 +15,7 @@
     <div class = "container">
         <div align="center">
             <a th:href="@{/}">Trang chủ</a><br>
-            <h1>Báo cáo</h1><br><br>
+            <h1>Theo dõi điểm</h1><br><br>
             <form th:action = "@{/ViewBySemester}" th:if = "${listSemester != null}">
                 <select  name="semester" >
                     <option th:each="i : ${listSemester}" th:value="${i.id}" th:text="${i.name}">

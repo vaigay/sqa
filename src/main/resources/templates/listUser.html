@@ -63,7 +63,7 @@
                         <td width="20%"><a class="btn btn-outline-warning update"
                                 th:href="@{/user/edit/{id}(id=${user.id})}">Sửa</a>&nbsp;&nbsp;&nbsp;
                             <a class="btn btn-outline-danger delete"
-                                th:href="@{/user/delete/{id}(id=${user.id})}">Xoá</a>
+                                th:id="@{/user/delete/{id}(id=${user.id})}">Xoá</a>
                         </td>
                     </tr>
                 </tbody>
@@ -73,6 +73,13 @@
     <script>
         $(document).ready(function(){
             $("#mess").fadeOut(3000);
+            $(".delete").click(function(){
+                if(confirm("Bạn có chắc muốn xoá!")){
+                    window.location.href($(this).attr('id'));
+                }
+                else
+					return false;
+            });
         })
     </script>
 </body>
