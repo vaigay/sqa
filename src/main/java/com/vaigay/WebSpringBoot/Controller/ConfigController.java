@@ -17,7 +17,7 @@ public class ConfigController {
 	
 	@Autowired
 	private ServiceConfig service;
-	private int attendance;
+
 	
 	@RequestMapping("/config")
 	public String viewSubject(Model model) {
@@ -29,6 +29,7 @@ public class ConfigController {
 	public String viewConfigSubject(@PathVariable(name = "id") long id,Model model) {
 		service.setModelScoreConfig(id, model);
 		model.addAttribute("idSubject", id);
+		model.addAttribute("subject",service.getSubjectByid(id));
 		return "configDetail";
 	}
 	

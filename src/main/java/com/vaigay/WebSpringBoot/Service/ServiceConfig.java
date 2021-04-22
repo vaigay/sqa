@@ -63,7 +63,11 @@ public class ServiceConfig {
 			listConDetails.add(configScoreDetail);
 		}
 		
-	}	
+	}
+	
+	public Subject getSubjectByid(long id) {
+		return subjectRepository.getOne(id);
+	}
 	
 	
 }
