@@ -75,7 +75,7 @@
             $("#mess").fadeOut(3000);
             $(".delete").click(function(){
                 if(confirm("Bạn có chắc muốn xoá!")){
-                    window.location.href($(this).attr('id'));
+                    window.location.href = $(this).attr('id');
                 }
                 else
 					return false;

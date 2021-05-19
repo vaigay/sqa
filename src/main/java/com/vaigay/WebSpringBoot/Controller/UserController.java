@@ -76,6 +76,7 @@ public class UserController {
 	
 	@RequestMapping("/user/delete/{id}")
 	public String deleteUser(@PathVariable(name = "id") long id) {
+		System.out.println("delete");
 		service.deleteUser(id);
 		return "redirect:/listUser";
 	}
