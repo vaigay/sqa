@@ -48,14 +48,13 @@ public class UserController {
 		user.setStatus(1);
 		reAttributes.addFlashAttribute("mess", "Lưu thành công!");
 		service.saveUser(user);
-//		System.out.println("???");
 		return "redirect:/listUser";
 	}
 	
 	@RequestMapping(value = "/saveEditUser",method = RequestMethod.POST)
 	public String saveEditUser(@ModelAttribute("user") User user, RedirectAttributes reAttributes) {
 		user.setStatus(1);
-		service.updateUser(user);
+		service.saveUser(user);
 		reAttributes.addFlashAttribute("mess", "Sửa thành công!");
 		return "redirect:/listUser";
 	}

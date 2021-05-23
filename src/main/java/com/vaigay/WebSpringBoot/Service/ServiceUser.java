@@ -32,11 +32,10 @@ public class ServiceUser {
 		return majorRepository.findAll();
 	}
 	
-	public void updateUser(User user) {
-		updateCode(user);
-		userRepository.save(user);
-		System.out.println(user);
-	}
+//	public void updateUser(User user) {
+//		updateCode(user);
+//		userRepository.save(user);
+//	}
 	
 	public void saveUser(User user) {
 		userRepository.save(user);
@@ -48,9 +47,7 @@ public class ServiceUser {
 		String course = c.replaceFirst("D","B");
 		StringBuilder b = new StringBuilder();
 		b.append(course);
-		//System.out.println(user.getMajor().getId());
 		String shortName = majorRepository.findShortNameMajorByID(user.getMajor().getId());
-		//System.out.println(shortName);
 		b.append(shortName);
 		b.append(user.getId());
 		userRepository.updateCodeUser(user.getId(),b.toString());
@@ -71,6 +68,7 @@ public class ServiceUser {
 	public List<User> getAllUser(){
 		return userRepository.findByStatus((int)1);
 	}
+	
 	
 //	public void test(String name) {
 //		Course c = new Course();

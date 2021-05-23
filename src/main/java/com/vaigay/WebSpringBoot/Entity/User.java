@@ -11,31 +11,71 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.sun.istack.NotNull;
+
 @Entity
 @Table
 public class User {
+	public User(String fullName, Date dateOfBirth, Course course, String address, String email,
+			Major major, int status) {
+		super();
+		this.fullName = fullName;
+		this.dateOfBirth = dateOfBirth;
+		this.course = course;
+		this.address = address;
+		this.email = email;
+		this.major = major;
+		this.status = status;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@NotNull
 	private String fullName;
+	@NotNull
 	private String code;
+	@NotNull
 	private Date dateOfBirth;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "course_id")
+	@NotNull
 	private Course course;
 	
+	@NotNull
 	private String address;
+	@NotNull
 	private String email;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "major_id")
+	@NotNull
 	private Major major;
 	private int status;
 
 	public long getId() {
 		return id;
+	}
+
+	public User(long id, String fullName, String code, Date dateOfBirth, Course course, String address, String email,
+			Major major, int status) {
+		super();
+		this.id = id;
+		this.fullName = fullName;
+		this.code = code;
+		this.dateOfBirth = dateOfBirth;
+		this.course = course;
+		this.address = address;
+		this.email = email;
+		this.major = major;
+		this.status = status;
 	}
 
 	public void setId(long id) {
