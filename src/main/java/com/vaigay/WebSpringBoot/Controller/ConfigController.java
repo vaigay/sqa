@@ -35,12 +35,6 @@ public class ConfigController {
 	
 	@RequestMapping(value = "/saveConfig" , method = RequestMethod.POST)
 	public String saveConfigSubject(RedirectAttributes reAttributes, String attendance,String exercise,String practice,String examFinal,String test, String idSubject) {
-		System.out.println(idSubject);
-		System.out.println(attendance);
-		System.out.println(test);
-		System.out.println(exercise);
-		System.out.println(practice);
-		System.out.println(examFinal);
 		reAttributes.addFlashAttribute("mess", "Cấu hình thành công");
 		service.saveConfig(attendance, exercise, practice, examFinal, test, idSubject);
 		return "redirect:/subjectConfig/" + idSubject;

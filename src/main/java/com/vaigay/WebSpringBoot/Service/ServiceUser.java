@@ -32,17 +32,13 @@ public class ServiceUser {
 		return majorRepository.findAll();
 	}
 	
-//	public void updateUser(User user) {
-//		updateCode(user);
-//		userRepository.save(user);
-//	}
 	
 	public void saveUser(User user) {
 		userRepository.save(user);
 		updateCode(user);
 	}
 	
-	private void updateCode(User user) {
+	public void updateCode(User user) {
 		String c = courseRepository.findNameCourseByID(user.getCourse().getId());
 		String course = c.replaceFirst("D","B");
 		StringBuilder b = new StringBuilder();
@@ -50,7 +46,7 @@ public class ServiceUser {
 		String shortName = majorRepository.findShortNameMajorByID(user.getMajor().getId());
 		b.append(shortName);
 		b.append(user.getId());
-		userRepository.updateCodeUser(user.getId(),b.toString());
+		user.setCode(b.toString());
 	}
 
 	public List<User> getListUserByCode(String code){
@@ -69,10 +65,4 @@ public class ServiceUser {
 		return userRepository.findByStatus((int)1);
 	}
 	
-	
-//	public void test(String name) {
-//		Course c = new Course();
-//		c.setName(name);
-//		courseRepository.save(c);
-//	}
 }

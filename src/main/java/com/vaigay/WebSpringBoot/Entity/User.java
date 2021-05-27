@@ -2,6 +2,7 @@ package com.vaigay.WebSpringBoot.Entity;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,26 +38,24 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
-	@NotNull
+	@Column(nullable = false)
 	private String fullName;
-	@NotNull
+	
 	private String code;
-	@NotNull
+	@Column(nullable = false)
 	private Date dateOfBirth;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "course_id")
-	@NotNull
+	@JoinColumn(name = "course_id",nullable = false)
 	private Course course;
 	
-	@NotNull
+	@Column(nullable = false)
 	private String address;
-	@NotNull
+	@Column(nullable = false)
 	private String email;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "major_id")
-	@NotNull
+	@JoinColumn(name = "major_id",nullable = false)
 	private Major major;
 	private int status;
 

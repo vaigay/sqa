@@ -54,6 +54,11 @@ public class Major {
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
 	}
+
+	@Override
+	public String toString() {
+		return "Major [id=" + id + ", nameMajor=" + nameMajor + ", shortName=" + shortName + "]";
+	}
 	
 	
 }

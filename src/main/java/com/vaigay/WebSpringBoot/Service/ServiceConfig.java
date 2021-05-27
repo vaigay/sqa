@@ -49,13 +49,13 @@ public class ServiceConfig {
 		addConfig("test",test,listConDetails);
 		addConfig("examFinal",examFinal,listConDetails);
 		config.setListConfig(listConDetails);
-		for(ConfigScoreDetail configScoreDetai : listConDetails)
+		for(ConfigScoreDetail configScoreDetai : listConDetails) 
 			configScoreDetai.setConfigScore(config);
 		conRepository.save(config);
 		subjectRepository.updateConfigId(config.getId(),Long.parseLong(idSubject));
 	}
 
-	private void addConfig(String name, String percent, List<ConfigScoreDetail> listConDetails) {
+	public void addConfig(String name, String percent, List<ConfigScoreDetail> listConDetails) {
 		if(!percent.equals("")) {
 			ConfigScoreDetail configScoreDetail = new ConfigScoreDetail();
 			configScoreDetail.setName(name);
@@ -66,7 +66,7 @@ public class ServiceConfig {
 	}
 	
 	public Subject getSubjectByid(long id) {
-		return subjectRepository.getOne(id);
+		return subjectRepository.findById(id).orElse(null);
 	}
 	
 	

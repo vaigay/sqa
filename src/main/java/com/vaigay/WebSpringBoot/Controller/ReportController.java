@@ -21,14 +21,6 @@ public class ReportController {
 		return "reportDetail";
 	}
 	
-	@RequestMapping("/reportAllUser")
-	public String reportAllUser(Model model) {
-		model.addAttribute("listUser", service.getAllUser());
-		model.addAttribute("listMess", service.getReportAllMess());
-		model.addAttribute("listCourse", service.getAllCourses());
-		model.addAttribute("listMajor", service.getAllMajor());
-		return "reportDetail";
-	}
 	
 	@RequestMapping("/reportBy")
 	public String reportUserByField(@RequestParam("CourseId") String CourseId,@RequestParam("MajorId") String MajorId,Model model) {

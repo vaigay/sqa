@@ -15,16 +15,10 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	List<User> findByCodeContainingAndStatus(String code,int status);
 	
-//	@Query("SELECT count(u) FROM User u WHERE u.major.id = :id")
 	int countByMajorIdAndStatus(long id,int status);
 	
-//	@Query("SELECT count(u) FROM User u WHERE u.course.id = :id")
 	int countByCourseIdAndStatus(long id,int status);
 	
-	@Transactional
-	@Modifying
-	@Query("UPDATE User u set u.code = :code WHERE u.id = :id")
-	void updateCodeUser(@Param("id") long id, @Param("code") String code);
 	
 	@Transactional
 	@Modifying

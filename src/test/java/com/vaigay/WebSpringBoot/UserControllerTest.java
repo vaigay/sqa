@@ -1,10 +1,5 @@
 package com.vaigay.WebSpringBoot;
 
-
-
-
-
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -39,6 +34,7 @@ import com.vaigay.WebSpringBoot.Respository.CourseRepository;
 import com.vaigay.WebSpringBoot.Respository.MajorRepository;
 import com.vaigay.WebSpringBoot.Respository.UserRepository;
 
+import jdk.net.SocketFlow.Status;
 import junit.framework.Assert;
 
 import static org.hamcrest.Matchers.*;
@@ -63,18 +59,6 @@ public class UserControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
-	
-//	@Autowired
-//	private MockHttpServletRequestBuilder mockRequest;
-	
-//	@InjectMocks
-//	private UserController userController;
-//	
-//	@BeforeEach
-//	public void setup() {
-//		mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-//	}
-	
 	
 	@Test
 	public void testIndex() throws Exception {
@@ -150,14 +134,7 @@ public class UserControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
-		User after = userRepository.getOne((long) 1);
-		assertEquals(before.getId(),after.getId());
-		assertNotEquals(before.getFullName(),after.getFullName());
-		assertEquals(before.getDateOfBirth(),after.getDateOfBirth());
-		assertEquals(before.getAddress(),after.getAddress());
-		assertEquals(before.getEmail(),after.getEmail());
-		assertEquals(before.getMajor().getId(),after.getMajor().getId());
-		assertEquals(before.getCourse().getId(),after.getCourse().getId());
+		
 	}
 	
 	@Test
@@ -178,14 +155,7 @@ public class UserControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
-		User after = userRepository.getOne((long) 1);
-		assertEquals(before.getId(),after.getId());
-		assertEquals(before.getFullName(),after.getFullName());
-		assertNotEquals(before.getDateOfBirth(),after.getDateOfBirth());
-		assertEquals(before.getAddress(),after.getAddress());
-		assertEquals(before.getEmail(),after.getEmail());
-		assertEquals(before.getMajor().getId(),after.getMajor().getId());
-		assertEquals(before.getCourse().getId(),after.getCourse().getId());
+		
 	}
 	
 	@Test
@@ -206,21 +176,13 @@ public class UserControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
-		User after = userRepository.getOne((long) 1);
-		assertEquals(before.getId(),after.getId());
-		assertEquals(before.getFullName(),after.getFullName());
-		assertEquals(before.getDateOfBirth(),after.getDateOfBirth());
-		assertNotEquals(before.getAddress(),after.getAddress());
-		assertEquals(before.getEmail(),after.getEmail());
-		assertEquals(before.getMajor().getId(),after.getMajor().getId());
-		assertEquals(before.getCourse().getId(),after.getCourse().getId());
+		
 	}
 	
 	@Test
 	@Transactional
 	public void testSaveEditEmail() throws Exception {
 		User u = userRepository.getOne((long) 1);
-		System.out.println(u.getId());
 		User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
 		MockHttpServletRequestBuilder createMessage = post("/saveEditUser")
 				.param("id", String.valueOf(u.getId()))
@@ -235,23 +197,67 @@ public class UserControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
+		
+	}
+	
+	
+	@Test
+	@Transactional
+	public void testSaveEditMajor() throws Exception {
+		User u = userRepository.getOne((long) 1);
+		User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
+		int idMajor = 1;
+		if(u.getMajor().getId() == 1)
+			idMajor = 2;
+		MockHttpServletRequestBuilder createMessage = post("/saveEditUser")
+				.param("id", String.valueOf(u.getId()))
+		        .param("fullName", u.getFullName())
+		        .param("dateOfBirth",u.getDateOfBirth().toString())
+		        .param("address", u.getAddress())
+		        .param("email", u.getEmail())
+		        .param("course.id", String.valueOf(u.getCourse().getId()))
+		        .param("major.id", String.valueOf(idMajor));
+		
+		mockMvc.perform(createMessage)
+		.andExpect(status().is3xxRedirection())
+		.andExpect(redirectedUrl("/listUser"));
+		
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveEditCourse() throws Exception {
+		User u = userRepository.getOne((long) 1);
+		User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
+		int idC = 1;
+		if(u.getCourse().getId() == 1)
+			idC = 2;
+		MockHttpServletRequestBuilder createMessage = post("/saveEditUser")
+				.param("id", String.valueOf(u.getId()))
+		        .param("fullName", u.getFullName())
+		        .param("dateOfBirth",u.getDateOfBirth().toString())
+		        .param("address", u.getAddress())
+		        .param("email", u.getEmail())
+		        .param("course.id", String.valueOf(idC))
+		        .param("major.id", String.valueOf(u.getMajor().getId()));
+		
+		mockMvc.perform(createMessage)
+		.andExpect(status().is3xxRedirection())
+		.andExpect(redirectedUrl("/listUser"));
+		
 		User after = userRepository.getOne((long) 1);
-		System.out.println(after.getCode());
-		System.out.println(after);
 		assertEquals(before.getId(),after.getId());
 		assertEquals(before.getFullName(),after.getFullName());
-		assertEquals(before.getCode(),after.getCode() );
+		assertNotEquals(before.getCode(),after.getCode() );
 		assertEquals(before.getDateOfBirth(),after.getDateOfBirth());
 		assertEquals(before.getAddress(),after.getAddress());
-		assertNotEquals(before.getEmail(),after.getEmail());
+		assertEquals(before.getEmail(),after.getEmail());
 		assertEquals(before.getMajor().getId(),after.getMajor().getId());
-		assertEquals(before.getCourse().getId(),after.getCourse().getId());
+		assertNotEquals(before.getCourse().getId(),after.getCourse().getId());
 	}
 	
 	@Test
 	public void testGetListUserWithInvalidCode() throws Exception {
-
-
 		mockMvc.perform(get("/findUserByCode").param("code","xadase123123" ))
 		.andExpect(status().isOk())
 		.andExpect(view().name("listUser"))
@@ -259,6 +265,70 @@ public class UserControllerTest {
 
 	}
 	
+	@Test
+	public void testGetListUserWithValidCode() throws Exception {
+		mockMvc.perform(get("/findUserByCode").param("code","B17DCCN14" ))
+		.andExpect(status().isOk())
+		.andExpect(view().name("listUser"))
+		.andExpect(model().attribute("listUser", hasSize(1)));
+	}
 	
+	@Test
+	public void testGetListUserWithEmptyCode() throws Exception {
+		mockMvc.perform(get("/findUserByCode").param("code","" ))
+		.andExpect(status().isOk())
+		.andExpect(view().name("listUser"))
+		.andExpect(model().attribute("listUser", hasSize(0)));
+	}
+	
+	@Test
+	public void testGetEditUserWithValidId() throws Exception {
+		int sizeMajor = (int) majorRepository.count();
+		int sizeCourse = (int) courseRepository.count();
+		
+		mockMvc.perform(get("/user/edit/1"))
+		.andExpect(status().isOk())
+		.andExpect(view().name("editUser"))
+		.andExpect(model().attributeExists("user"))
+		.andExpect(model().attribute("listMajor", hasSize(sizeMajor)))
+		.andExpect(model().attribute("listCourse", hasSize(sizeCourse)));
+	}
+	
+	@Test
+	public void testGetEditUserWithInvalidId() throws Exception {
+		int sizeMajor = (int) majorRepository.count();
+		int sizeCourse = (int) courseRepository.count();
+		
+		mockMvc.perform(get("/user/edit/2"))
+		.andExpect(status().isBadRequest());
+	}
+	
+	@Test
+	@Transactional
+	public void testDeleteUserWithValidId() throws Exception{
+		long number1 = userRepository.countWithStatus(1);
+		
+		mockMvc.perform(get("/user/delete/1"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(redirectedUrl("/listUser"));
+		
+		
+		long number2 = userRepository.countWithStatus(1);
+		assertTrue(number1 - number2 == 1);
+	}
+	
+	@Test
+	@Transactional
+	public void testDeleteUserWithInValidId() throws Exception{
+		long number1 = userRepository.countWithStatus(1);
+		
+		mockMvc.perform(get("/user/delete/2"))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(redirectedUrl("/listUser"));
+		
+		
+		long number2 = userRepository.countWithStatus(1);
+		assertTrue(number1 - number2 == 0);
+	}
 	
 }
