@@ -37,6 +37,7 @@ public class ServiceUser {
 		userRepository.save(user);
 		updateCode(user);
 	}
+
 	
 	public void updateCode(User user) {
 		String c = courseRepository.findNameCourseByID(user.getCourse().getId());
@@ -47,6 +48,7 @@ public class ServiceUser {
 		b.append(shortName);
 		b.append(user.getId());
 		user.setCode(b.toString());
+		userRepository.updateUserCode(user.getId(), user.getCode());
 	}
 
 	public List<User> getListUserByCode(String code){

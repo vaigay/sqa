@@ -1,5 +1,6 @@
 package com.vaigay.WebSpringBoot;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -12,6 +13,7 @@ import java.sql.Date;
 
 import javax.transaction.Transactional;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,9 +21,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import com.vaigay.WebSpringBoot.Entity.ConfigScore;
+import com.vaigay.WebSpringBoot.Entity.ConfigScoreDetail;
 import com.vaigay.WebSpringBoot.Entity.Course;
 import com.vaigay.WebSpringBoot.Entity.Major;
 import com.vaigay.WebSpringBoot.Entity.User;
+import com.vaigay.WebSpringBoot.Respository.ConfigScoreRepository;
 
 
 @SpringBootTest
@@ -29,6 +34,9 @@ import com.vaigay.WebSpringBoot.Entity.User;
 public class ConfigControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
+	
+	@Autowired
+	private ConfigScoreRepository configScoreRepository;
 	
 	@Test
 	public void testViewSubject() throws Exception{
@@ -72,5 +80,15 @@ public class ConfigControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/subjectConfig/" + id));
+		
+		ConfigScore configScore = configScoreRepository.getOne((long)1);
+		for(ConfigScoreDetail configScoreDetail : configScore.getListConfig()) {
+			if(configScoreDetail.getName().equals("attendance"))
+				assertEquals(configScoreDetail.getPercent(), 10);
+			if(configScoreDetail.getName().equals("practice"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("test"))
+				assertEquals(configScoreDetail.getPercent(), 70);
+		}
 	}
 }

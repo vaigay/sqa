@@ -75,13 +75,14 @@ public class ServiceConfigTest {
 	@Test
 	@Transactional
 	public void testSaveConfig() {
-		serviceConfig.saveConfig("40", "20", "20", "20", "", "1");
+		serviceConfig.saveConfig("10", "20", "20", "20", "30", "1");
 		Subject s = serviceConfig.getSubjectByid(1);
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		assertEquals(configScoreDetails.get(0).getPercent(),40 );
+		assertEquals(configScoreDetails.get(0).getPercent(),10 );
 		assertEquals(configScoreDetails.get(1).getPercent(),20 );
 		assertEquals(configScoreDetails.get(2).getPercent(),20 );
 		assertEquals(configScoreDetails.get(3).getPercent(),20 );
+		assertEquals(configScoreDetails.get(4).getPercent(),30 );
 	}
 	
 	@Test
@@ -93,8 +94,167 @@ public class ServiceConfigTest {
 		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
 			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
 		}
 		assertEquals(tmp, 100);
 	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigNullAttendance() {
+		serviceConfig.saveConfig("", "20", "20", "20", "40", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertEquals(tmp, 100);
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigNullExercise() {
+		serviceConfig.saveConfig("20", "", "20", "20", "40", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertEquals(tmp, 100);
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigNullPractice() {
+		serviceConfig.saveConfig("20", "20", "", "20", "40", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertEquals(tmp, 100);
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigNullTest() {
+		serviceConfig.saveConfig("20", "20", "20", "", "40", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertEquals(tmp, 100);
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigNullExam() {
+		serviceConfig.saveConfig("20", "20", "20", "40", "", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertEquals(tmp, 100);
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigFirstParamentEqual100() {
+		serviceConfig.saveConfig("100", "", "", "", "", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertTrue(configScoreDetails.get(0).getPercent() == 100);
+		assertEquals(tmp, 100);
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigSecondParamentEqual100() {
+		serviceConfig.saveConfig("", "100", "", "", "", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertTrue(configScoreDetails.get(0).getPercent() == 100);
+		assertEquals(tmp, 100);
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigThirdParamentEqual100() {
+		serviceConfig.saveConfig("", "", "100", "", "", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertTrue(configScoreDetails.get(0).getPercent() == 100);
+		assertEquals(tmp, 100);
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigFouthParamentEqual100() {
+		serviceConfig.saveConfig("", "", "", "100", "", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertTrue(configScoreDetails.get(0).getPercent() == 100);
+		assertEquals(tmp, 100);
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveConfigFifthParamentEqual100() {
+		serviceConfig.saveConfig("", "", "", "", "100", "1");
+		Subject s = serviceConfig.getSubjectByid(1);
+		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
+		int tmp = 0;
+		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
+			tmp += configScoreDetail.getPercent();
+			assertTrue(configScoreDetail.getPercent() > 0);
+			assertTrue(configScoreDetail.getPercent() <= 100);
+		}
+		assertTrue(configScoreDetails.get(0).getPercent() == 100);
+		assertEquals(tmp, 100);
+	}
+	
+	
 }
 

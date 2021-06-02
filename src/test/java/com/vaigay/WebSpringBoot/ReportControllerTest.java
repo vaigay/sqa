@@ -78,6 +78,7 @@ public class ReportControllerTest {
 			.andExpect(view().name("reportDetail"));
 		}catch (Exception e) {
 			e.printStackTrace();
+			assertTrue(false);
 		}
 	}
 }

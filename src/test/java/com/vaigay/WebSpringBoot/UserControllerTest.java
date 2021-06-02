@@ -296,8 +296,7 @@ public class UserControllerTest {
 	
 	@Test
 	public void testGetEditUserWithInvalidId() throws Exception {
-		int sizeMajor = (int) majorRepository.count();
-		int sizeCourse = (int) courseRepository.count();
+		
 		
 		mockMvc.perform(get("/user/edit/2"))
 		.andExpect(status().isBadRequest());
@@ -308,7 +307,7 @@ public class UserControllerTest {
 	public void testDeleteUserWithValidId() throws Exception{
 		long number1 = userRepository.countWithStatus(1);
 		
-		mockMvc.perform(get("/user/delete/1"))
+		mockMvc.perform(get("/user/delete/20"))
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
 		

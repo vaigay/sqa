@@ -2,6 +2,7 @@ package com.vaigay.WebSpringBoot;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -71,7 +72,8 @@ public class UserServiceTest {
 			u.setMajor(m);
 			u.setCourse(c);
 			serviceUser.saveUser(u);
-			assertTrue(u.getId() > 0);
+			User after = userRepository.getOne(u.getId());
+			assertEquals(after, u);
 		}catch (Exception e) {
 			e.printStackTrace();
 			assertTrue(false);
@@ -80,233 +82,185 @@ public class UserServiceTest {
 	
 	@Test
 	@Transactional
-	public void testSaveUserWithoutName() {
+	public void testSaveEditUserWithName() {
 		try {
-			User u = new User();
-			u.setAddress("address");
+			User u = userRepository.getOne((long) 1);
+			User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
+			u.setFullName("1234");
+			serviceUser.saveUser(u);
+			User after = userRepository.getOne((long) 1);
+			assertEquals(before.getId(), after.getId());
+			assertNotEquals(before.getFullName(), after.getFullName());
+			assertEquals(before.getAddress(), after.getAddress());
+			assertEquals(before.getCode(), after.getCode());
+			assertEquals(before.getStatus(), after.getStatus());
+			assertEquals(before.getDateOfBirth(), after.getDateOfBirth());
+			assertEquals(before.getEmail(), after.getEmail());
+			assertEquals(before.getCourse(), after.getCourse());
+			assertEquals(before.getMajor(), after.getMajor());
+		}catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveEditUserWithDateOfBirth() {
+		try {
+			User u = userRepository.getOne((long) 1);
+			User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
 			u.setDateOfBirth(new Date(8,8,1999));
-			u.setEmail("hai123@gmail.com");
-			u.setStatus(1);
+			serviceUser.saveUser(u);
+			User after = userRepository.getOne((long) 1);
+			assertEquals(before.getId(), after.getId());
+			assertEquals(before.getFullName(), after.getFullName());
+			assertEquals(before.getAddress(), after.getAddress());
+			assertEquals(before.getCode(), after.getCode());
+			assertEquals(before.getStatus(), after.getStatus());
+			assertNotEquals(before.getDateOfBirth(), after.getDateOfBirth());
+			assertEquals(before.getEmail(), after.getEmail());
+			assertEquals(before.getCourse(), after.getCourse());
+			assertEquals(before.getMajor(), after.getMajor());
+		}catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveEditUserWithAdress() {
+		try {
+			User u = userRepository.getOne((long) 1);
+			User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
+			u.setAddress("new Address");
+			serviceUser.saveUser(u);
+			User after = userRepository.getOne((long) 1);
+			assertEquals(before.getId(), after.getId());
+			assertEquals(before.getFullName(), after.getFullName());
+			assertNotEquals(before.getAddress(), after.getAddress());
+			assertEquals(before.getCode(), after.getCode());
+			assertEquals(before.getStatus(), after.getStatus());
+			assertEquals(before.getDateOfBirth(), after.getDateOfBirth());
+			assertEquals(before.getEmail(), after.getEmail());
+			assertEquals(before.getCourse(), after.getCourse());
+			assertEquals(before.getMajor(), after.getMajor());
+		}catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveEditUserWithEmail() {
+		try {
+			User u = userRepository.getOne((long) 1);
+			User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
+			u.setEmail("email@email.123");
+			serviceUser.saveUser(u);
+			User after = userRepository.getOne((long) 1);
+			assertEquals(before.getId(), after.getId());
+			assertEquals(before.getFullName(), after.getFullName());
+			assertEquals(before.getAddress(), after.getAddress());
+			assertEquals(before.getCode(), after.getCode());
+			assertEquals(before.getStatus(), after.getStatus());
+			assertEquals(before.getDateOfBirth(), after.getDateOfBirth());
+			assertNotEquals(before.getEmail(), after.getEmail());
+			assertEquals(before.getCourse(), after.getCourse());
+			assertEquals(before.getMajor(), after.getMajor());
+		}catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveEditUserWithInvalidEmail() {
+		try {
+			User u = userRepository.getOne((long) 1);
+			User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
+			u.setEmail("email@email.123");
+			serviceUser.saveUser(u);
+			User after = userRepository.getOne((long) 1);
+			assertEquals(before.getId(), after.getId());
+			assertEquals(before.getFullName(), after.getFullName());
+			assertEquals(before.getAddress(), after.getAddress());
+			assertEquals(before.getCode(), after.getCode());
+			assertEquals(before.getStatus(), after.getStatus());
+			assertEquals(before.getDateOfBirth(), after.getDateOfBirth());
+			assertEquals(before.getEmail(), after.getEmail());
+			assertEquals(before.getCourse(), after.getCourse());
+			assertEquals(before.getMajor(), after.getMajor());
+			assertFalse(true);
+		}catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveEditUserWithMajor() {
+		try {
+			User u = userRepository.getOne((long) 1);
+			User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
 			Major m = new Major();
 			m.setId(1);
+			if(before.getMajor().getId() == 1)
+				m.setId(2);
+			u.setMajor(m);
+			serviceUser.saveUser(u);
+			User after = userRepository.getOne((long) 1);
+			assertEquals(before.getId(), after.getId());
+			assertEquals(before.getFullName(), after.getFullName());
+			assertEquals(before.getAddress(), after.getAddress());
+			assertNotEquals(before.getCode(), after.getCode());
+			assertEquals(before.getStatus(), after.getStatus());
+			assertEquals(before.getDateOfBirth(), after.getDateOfBirth());
+			assertEquals(before.getEmail(), after.getEmail());
+			assertEquals(before.getCourse(), after.getCourse());
+			assertNotEquals(before.getMajor(), after.getMajor());
+		}catch (Exception e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+	}
+	
+	@Test
+	@Transactional
+	public void testSaveEditUserWithCourse() {
+		try {
+			User u = userRepository.getOne((long) 1);
+			User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
 			Course c = new Course();
 			c.setId(1);
-			u.setMajor(m);
+			if(before.getCourse().getId() == 1)
+				c.setId(2);
 			u.setCourse(c);
 			serviceUser.saveUser(u);
-			System.out.println(u);
-			assertTrue(u.getId() > 0);
+			User after = userRepository.getOne((long) 1);
+			assertEquals(before.getId(), after.getId());
+			assertEquals(before.getFullName(), after.getFullName());
+			assertEquals(before.getAddress(), after.getAddress());
+			assertNotEquals(before.getCode(), after.getCode());
+			assertEquals(before.getStatus(), after.getStatus());
+			assertEquals(before.getDateOfBirth(), after.getDateOfBirth());
+			assertEquals(before.getEmail(), after.getEmail());
+			assertNotEquals(before.getCourse(), after.getCourse());
+			assertEquals(before.getMajor(), after.getMajor());
 		}catch (Exception e) {
 			e.printStackTrace();
-			assertTrue(true);
+			assertTrue(false);
 		}
 	}
 	
-	@Test
-	@Transactional
-	public void testSaveUserWithoutAddress() {
-		try {
-			User u = new User();
-			u.setFullName("name");
-			u.setDateOfBirth(new Date(8,8,1999));
-			u.setEmail("hai123@gmail.com");
-			u.setStatus(1);
-			Major m = new Major();
-			m.setId(1);
-			Course c = new Course();
-			c.setId(1);
-			u.setMajor(m);
-			u.setCourse(c);
-			serviceUser.saveUser(u);
-			System.out.println(u);
-			assertFalse(u.getId() > 0);
-		}catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(true);
-		}
-	}
 	
-	@Test
-	@Transactional
-	public void testSaveUserWithoutDateOfBirth() {
-		try {
-			User u = new User();
-			u.setFullName("name");
-			u.setAddress("address");
-			u.setEmail("hai123@gmail.com");
-			u.setStatus(1);
-			Major m = new Major();
-			m.setId(1);
-			Course c = new Course();
-			c.setId(1);
-			u.setMajor(m);
-			u.setCourse(c);
-			serviceUser.saveUser(u);
-			assertFalse(u.getId() > 0);
-		}catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(true);
-		}
-	}
 	
-	@Test
-	@Transactional
-	public void testSaveUserWithoutEmail() {
-		try {
-			User u = new User();
-			u.setFullName("name");
-			u.setAddress("address");
-			u.setDateOfBirth(new Date(8,8,1999));
-			u.setStatus(1);
-			Major m = new Major();
-			m.setId(1);
-			Course c = new Course();
-			c.setId(1);
-			u.setMajor(m);
-			u.setCourse(c);
-			serviceUser.saveUser(u);
-			assertFalse(u.getId() > 0);
-		}catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(true);
-		}
-	}
 	
-	@Test
-	@Transactional
-	public void testSaveUserWithEmailInvalid() {
-		try {
-			User u = new User();
-			u.setFullName("name");
-			u.setAddress("address");
-			u.setDateOfBirth(new Date(8,8,1999));
-			u.setEmail("12312313123");
-			u.setStatus(1);
-			Major m = new Major();
-			m.setId(1);
-			Course c = new Course();
-			c.setId(1);
-			u.setMajor(m);
-			u.setCourse(c);
-			serviceUser.saveUser(u);
-			assertFalse(u.getId() > 0);
-		}catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(true);
-		}
-	}
-	
-	@Test
-	@Transactional
-	public void testSaveUserWithoutStatus() {
-		try {
-			User u = new User();
-			u.setFullName("name");
-			u.setAddress("address");
-			u.setDateOfBirth(new Date(8,8,1999));
-			u.setEmail("hai123@gmail.com");
-			Major m = new Major();
-			m.setId(1);
-			Course c = new Course();
-			c.setId(1);
-			u.setMajor(m);
-			u.setCourse(c);
-			serviceUser.saveUser(u);
-			assertFalse(u.getId() > 0);
-		}catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(true);
-		}
-	}
-	
-	@Test
-	@Transactional
-	public void testSaveUserWithoutMajor() {
-		try {
-			User u = new User();
-			u.setFullName("name");
-			u.setAddress("address");
-			u.setDateOfBirth(new Date(8,8,1999));
-			u.setEmail("hai123@gmail.com");			
-			Course c = new Course();
-			c.setId(1);
-			u.setCourse(c);
-			serviceUser.saveUser(u);
-			assertFalse(u.getId() > 0);
-		}catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(true);
-		}
-	}
-	
-	@Test
-	@Transactional
-	public void testSaveUserWithInvalidMajor() {
-		try {
-			User u = new User();
-			u.setFullName("name");
-			u.setAddress("address");
-			u.setDateOfBirth(new Date(8,8,1999));
-			u.setEmail("hai123@gmail.com");
-			u.setStatus(1);
-			Major m = new Major();
-			m.setId(100);
-			Course c = new Course();
-			c.setId(1);
-			u.setMajor(m);
-			u.setCourse(c);
-			serviceUser.saveUser(u);
-			assertFalse(u.getId() > 0);
-		}catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(true);
-		}
-	}
-	
-	@Test
-	@Transactional
-	public void testSaveUserWithoutCourse() {
-		try {
-			User u = new User();
-			u.setFullName("name");
-			u.setAddress("address");
-			u.setDateOfBirth(new Date(8,8,1999));
-			u.setEmail("hai123@gmail.com");
-			u.setStatus(1);
-			Major m = new Major();
-			m.setId(1);
-			u.setMajor(m);
-			serviceUser.saveUser(u);
-			assertFalse(u.getId() > 0);
-		}catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(true);
-		}
-	}
-	
-	@Test
-	@Transactional
-	public void testSaveUserWithInvalidCourse() {
-		try {
-			User u = new User();
-			u.setFullName("name");
-			u.setAddress("address");
-			u.setDateOfBirth(new Date(8,8,1999));
-			u.setEmail("hai123@gmail.com");
-			u.setStatus(1);
-			Major m = new Major();
-			m.setId(1);
-			Course c = new Course();
-			c.setId(100);
-			u.setMajor(m);
-			u.setCourse(c);
-			serviceUser.saveUser(u);
-			assertFalse(u.getId() > 0);
-		}catch (Exception e) {
-			e.printStackTrace();
-			assertTrue(true);
-		}
-	}
+
 	
 	@Test
 	@Transactional
@@ -317,7 +271,8 @@ public class UserServiceTest {
 		k.setCourse(u.getCourse());
 		k.setMajor(u.getMajor());
 		serviceUser.updateCode(k);
-		assertEquals(u.getCode(), k.getCode());
+		User after = userRepository.getOne((long)1);
+		assertEquals(after.getCode(), k.getCode());
 		
 	}
 	
@@ -364,7 +319,8 @@ public class UserServiceTest {
 		try {
 			serviceUser.deleteUser(1);
 			User u = userRepository.getOne((long) 1);
-			assertEquals(u.getStatus(), 0);
+			User after = userRepository.getOne((long) 1);
+			assertEquals(after.getStatus(), 0);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -374,9 +330,10 @@ public class UserServiceTest {
 	@Transactional
 	public void testDeleteUserInvalid() {
 		try {
-			serviceUser.deleteUser(1);
+			serviceUser.deleteUser(20);
 			User u = userRepository.getOne((long) 100);
-			assertEquals(u.getStatus(), 0);
+			User after = userRepository.getOne((long) 1);
+			assertEquals(after.getStatus(), 0);
 		} catch (Exception e) {
 			e.printStackTrace();
 			assertFalse(true);
