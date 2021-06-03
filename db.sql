@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `config_score`;
 CREATE TABLE `config_score` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=364 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -34,7 +34,7 @@ CREATE TABLE `config_score` (
 
 LOCK TABLES `config_score` WRITE;
 /*!40000 ALTER TABLE `config_score` DISABLE KEYS */;
-INSERT INTO `config_score` VALUES (1),(2),(11),(12),(13),(14),(15);
+INSERT INTO `config_score` VALUES (1),(2),(11),(12),(13),(14),(15),(16),(17),(18);
 /*!40000 ALTER TABLE `config_score` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,7 +53,7 @@ CREATE TABLE `config_score_detail` (
   PRIMARY KEY (`id`),
   KEY `FKh4smt9v65nujv8yyvtx641t2u` (`config_socre_id`),
   CONSTRAINT `FKh4smt9v65nujv8yyvtx641t2u` FOREIGN KEY (`config_socre_id`) REFERENCES `config_score` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1258 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE `config_score_detail` (
 
 LOCK TABLES `config_score_detail` WRITE;
 /*!40000 ALTER TABLE `config_score_detail` DISABLE KEYS */;
-INSERT INTO `config_score_detail` VALUES (1,'attendance',1,10),(2,'exercise',1,20),(3,'practice',1,20),(4,'examFinal',1,50),(5,'attendance',2,10),(6,'exercise',2,30),(7,'examFinal',2,60),(26,'attendance',11,10),(27,'practice',11,10),(28,'test',11,20),(29,'examFinal',11,60),(30,'attendance',12,10),(31,'exercise',12,20),(32,'practice',12,10),(33,'test',12,10),(34,'examFinal',12,50),(35,'attendance',13,10),(36,'exercise',13,20),(37,'practice',13,20),(38,'examFinal',13,50),(39,'attendance',14,10),(40,'practice',14,10),(41,'test',14,10),(42,'examFinal',14,70),(43,'attendance',15,10),(44,'practice',15,10),(45,'examFinal',15,80);
+INSERT INTO `config_score_detail` VALUES (1,'attendance',1,10),(2,'exercise',1,20),(3,'practice',1,20),(4,'examFinal',1,50),(5,'attendance',2,10),(6,'exercise',2,30),(7,'examFinal',2,60),(26,'attendance',11,10),(27,'practice',11,10),(28,'test',11,20),(29,'examFinal',11,60),(30,'attendance',12,10),(31,'exercise',12,20),(32,'practice',12,10),(33,'test',12,10),(34,'examFinal',12,50),(35,'attendance',13,10),(36,'exercise',13,20),(37,'practice',13,20),(38,'examFinal',13,50),(39,'attendance',14,10),(40,'practice',14,10),(41,'test',14,10),(42,'examFinal',14,70),(43,'attendance',15,10),(44,'practice',15,10),(45,'examFinal',15,80),(46,'attendance',16,10),(47,'exercise',16,20),(48,'practice',16,20),(49,'examFinal',16,50),(50,'attendance',17,10),(51,'exercise',17,20),(52,'practice',17,20),(53,'examFinal',17,50),(54,'attendance',18,10),(55,'exercise',18,20),(56,'practice',18,20),(57,'examFinal',18,50);
 /*!40000 ALTER TABLE `config_score_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +77,7 @@ CREATE TABLE `course` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +86,7 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES (1,'D17'),(2,'D18');
+INSERT INTO `course` VALUES (1,'D17'),(2,'D18'),(3,'D19');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +102,7 @@ CREATE TABLE `major` (
   `name_major` varchar(255) DEFAULT NULL,
   `short_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `major` (
 
 LOCK TABLES `major` WRITE;
 /*!40000 ALTER TABLE `major` DISABLE KEYS */;
-INSERT INTO `major` VALUES (1,'Công nghệ thông tin','DCCN'),(2,'An toàn thông tin','DCAT'),(3,'Công nghệ đa phương tiện','DCPT');
+INSERT INTO `major` VALUES (1,'Công nghệ thông tin','DCCN'),(2,'An toàn thông tin','DCAT'),(3,'Công nghệ đa phương tiện','DCPT'),(4,'Marketing','MAR'),(5,'Viễn Thông','DCVT');
 /*!40000 ALTER TABLE `major` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +188,7 @@ CREATE TABLE `subject` (
   PRIMARY KEY (`id`),
   KEY `FKn4xqskxpcf27s3uvux25lhus` (`config_score_id`),
   CONSTRAINT `FKn4xqskxpcf27s3uvux25lhus` FOREIGN KEY (`config_score_id`) REFERENCES `config_score` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,7 +197,7 @@ CREATE TABLE `subject` (
 
 LOCK TABLES `subject` WRITE;
 /*!40000 ALTER TABLE `subject` DISABLE KEYS */;
-INSERT INTO `subject` VALUES (1,'INT1234',3,'Lập trình mạng',13),(2,'INT1200',3,'Lập trình Web',11),(3,'INT12341',2,'Cơ sở dữ liệu phân tán',15),(4,'INT12341',2,'Quản lý dự án phần mềm',2);
+INSERT INTO `subject` VALUES (1,'INT1234',3,'Lập trình mạng',18),(2,'INT1200',3,'Lập trình Web',11),(3,'INT12341',2,'Cơ sở dữ liệu phân tán',15),(4,'INT12341',2,'Quản lý dự án phần mềm',2),(5,'INT1299',3,'An toàn bảo mật thông tin',NULL);
 /*!40000 ALTER TABLE `subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -258,7 +258,7 @@ CREATE TABLE `user` (
   KEY `FKc1q9juawhjvqie7wi3p44me9y` (`major_id`),
   CONSTRAINT `FKc1q9juawhjvqie7wi3p44me9y` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`),
   CONSTRAINT `FKj8ce5cjkm11igsffixdxexrr9` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,7 +267,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'kaka','B17DCCN1','1999-08-08','haicarry@gmail.com','Hải Phạm',1,1,1),(2,'exx','B17DCAT2','1999-02-12','99@gmail.com','Khánh Nguyễn',1,2,1),(3,'Hà Đông ','B17DCCN3','1999-12-02','abcx@123','Đỗ Q',1,1,1),(4,'Vĩnh Phúc','B17DCAT4','1999-12-09','az@gmail.com','Đỗ tuấn',1,2,1),(5,'vvxx','B17DCPT5','1998-11-11','anhcz@gmail.com','Tintin',1,3,1),(9,'ff13 ligning return','B17DCCN9','1998-11-04','avc@123.com','Serah',1,1,1),(10,'summor','B18DCPT10','1998-11-08','kiki@g.com','riki',2,3,1),(11,'viva','B18DCAT11','1999-08-09','2@123.com','virus',2,2,1),(12,'ff13','B18DCAT12','1997-01-01','de@snow.com','snow',2,2,1);
+INSERT INTO `user` VALUES (1,'kaka','B18DCPT1','1999-08-08','haicarry@gmail.com','Hải Phạm',2,3,0),(2,'exxcc','B19DCVT2','1999-02-12','99@gmail.com','Khánh Nguyễn',3,5,0),(3,'Hà Đông ','B17DCCN3','1999-12-02','abcx@123','Đỗ Q',1,1,0),(4,'Vĩnh Phúc','B17DCCN4','1999-12-09','az@gmail.com','Đỗ tuấn',1,1,0),(5,'vvxx','B17DCPT5','1998-11-11','anhcz@gmail.com','Tintin',1,3,0),(9,'xxvvv','B18DCVT9','1998-11-04','avc@123.com','Serah',2,5,0),(10,'summor','B18DCPT10','1998-11-08','kiki@g.com','riki',2,3,0),(11,'viva','B18DCAT11','1999-08-09','2@123.com','virus',2,2,0),(12,'ff13','B18DCAT12','1997-01-01','de@snow.com','snow',2,2,1),(13,'bb','B17DCAT13','1993-12-03','8899@gmail.com','Nguyễn Văn K',1,2,1),(14,'sdf','B17DCCN14','1119-11-11','haicarry@gmail.com','a',1,1,1),(15,'sdf','B17DCCN15','2020-10-20','haicarry@gmail.com','a',1,1,1),(16,'sdf','B18DCAT16','2019-02-13','haicarry@gmail.com','hai',2,2,1),(17,'sdf','B17DCCN17','2020-02-04','haicarry@gmail.com','hai',1,1,1),(18,'sdf','B17DCCN18','2020-07-01','haicarry@gmail.com','hai',1,1,1),(19,'123','B17DCPT19','2020-10-30','123@123.123','123',1,3,1),(20,'sdf','B17DCCN20','2019-10-16','haicarry@gmail.com','hai',1,1,1),(102,'x','B17DCCN102','1990-11-11','x@123.xtz','a',1,1,1),(103,'xa','B17DCAT103','1998-01-01','123@123.123','123',1,2,0),(104,'gg','B17DCPT104','1889-02-03','gng@gmail.com','g',1,3,1),(105,'okokok','B17DCPT105','1997-04-03','wqewq@123.qwe','ok',1,3,0),(106,'123x','B18MAR106','1885-11-13','avc@123.123','testLast',2,4,1),(107,'123','B18MAR107','1990-12-31','123@123.123','xasd',2,4,1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,4 +309,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-04 20:51:44
+-- Dump completed on 2021-06-03 20:06:42
