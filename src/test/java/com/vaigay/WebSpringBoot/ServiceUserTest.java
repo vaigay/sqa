@@ -26,7 +26,7 @@ import com.vaigay.WebSpringBoot.Service.ServiceUser;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserServiceTest {
+public class ServiceUserTest {
 	
 	@Autowired
 	private ServiceUser serviceUser;

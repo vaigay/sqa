@@ -1,6 +1,7 @@
 package com.vaigay.WebSpringBoot;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -16,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.vaigay.WebSpringBoot.Entity.ConfigScoreDetail;
 import com.vaigay.WebSpringBoot.Entity.Subject;
+import com.vaigay.WebSpringBoot.Respository.ConfigScoreDetailRepository;
 import com.vaigay.WebSpringBoot.Respository.SubjectRepository;
 import com.vaigay.WebSpringBoot.Service.ServiceConfig;
 
@@ -24,6 +26,9 @@ public class ServiceConfigTest {
 
 	@Autowired
 	private ServiceConfig serviceConfig;
+	
+	@Autowired
+	private ConfigScoreDetailRepository configScoreDetailRepository;
 	
 	
 	@Test
@@ -51,19 +56,6 @@ public class ServiceConfigTest {
 		assertTrue(listConDetails.size() == 1);
 	}
 	
-	@Test
-	public void testAddConfigGreaterThan100() {
-		List<ConfigScoreDetail> listConDetails = new ArrayList<ConfigScoreDetail>();
-		serviceConfig.addConfig("abc", "140", listConDetails);
-		assertTrue(listConDetails.size() == 0);
-	}
-	
-	@Test
-	public void testAddConfigSmallerThan0() {
-		List<ConfigScoreDetail> listConDetails = new ArrayList<ConfigScoreDetail>();
-		serviceConfig.addConfig("abc", "-20", listConDetails);
-		assertTrue(listConDetails.size() == 0);
-	}
 	
 	@Test
 	public void testAddConfigNull() {
@@ -85,34 +77,25 @@ public class ServiceConfigTest {
 		assertEquals(configScoreDetails.get(4).getPercent(),30 );
 	}
 	
-	@Test
-	@Transactional
-	public void testSaveConfigNotEqual100() {
-		serviceConfig.saveConfig("40", "20", "25", "20", "", "1");
-		Subject s = serviceConfig.getSubjectByid(1);
-		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
-		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
-		}
-		assertEquals(tmp, 100);
-	}
 	
 	@Test
 	@Transactional
 	public void testSaveConfigNullAttendance() {
 		serviceConfig.saveConfig("", "20", "20", "20", "40", "1");
-		Subject s = serviceConfig.getSubjectByid(1);
-		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
+		List<ConfigScoreDetail> configScoreDetails = configScoreDetailRepository.findByConfigScore_SubjectId((long)1);
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+//			System.out.println(configScoreDetail.getName() + " " + configScoreDetail.getPercent());
+			if(configScoreDetail.getName().equals("attendance"))
+				assertFalse(true);
+			if(configScoreDetail.getName().equals("exercise"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("practice"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("test"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("examFinal"))
+				assertEquals(configScoreDetail.getPercent(), 40);
 		}
-		assertEquals(tmp, 100);
 	}
 	
 	@Test
@@ -121,13 +104,18 @@ public class ServiceConfigTest {
 		serviceConfig.saveConfig("20", "", "20", "20", "40", "1");
 		Subject s = serviceConfig.getSubjectByid(1);
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+			if(configScoreDetail.getName().equals("attendance"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("exercise"))
+				assertFalse(true);
+			if(configScoreDetail.getName().equals("practice"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("test"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("examFinal"))
+				assertEquals(configScoreDetail.getPercent(), 40);
 		}
-		assertEquals(tmp, 100);
 	}
 	
 	@Test
@@ -138,9 +126,16 @@ public class ServiceConfigTest {
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
 		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+			if(configScoreDetail.getName().equals("attendance"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("exercise"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("practice"))				
+				assertFalse(true);
+			if(configScoreDetail.getName().equals("test"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("examFinal"))
+				assertEquals(configScoreDetail.getPercent(), 40);
 		}
 		assertEquals(tmp, 100);
 	}
@@ -151,13 +146,18 @@ public class ServiceConfigTest {
 		serviceConfig.saveConfig("20", "20", "20", "", "40", "1");
 		Subject s = serviceConfig.getSubjectByid(1);
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+			if(configScoreDetail.getName().equals("attendance"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("exercise"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("practice"))	
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("test"))				
+				assertFalse(true);
+			if(configScoreDetail.getName().equals("examFinal"))
+				assertEquals(configScoreDetail.getPercent(), 40);
 		}
-		assertEquals(tmp, 100);
 	}
 	
 	@Test
@@ -166,13 +166,18 @@ public class ServiceConfigTest {
 		serviceConfig.saveConfig("20", "20", "20", "40", "", "1");
 		Subject s = serviceConfig.getSubjectByid(1);
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+			if(configScoreDetail.getName().equals("attendance"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("exercise"))
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("practice"))	
+				assertEquals(configScoreDetail.getPercent(), 20);
+			if(configScoreDetail.getName().equals("test"))
+				assertEquals(configScoreDetail.getPercent(), 40);
+			if(configScoreDetail.getName().equals("examFinal"))
+				assertFalse(true);
 		}
-		assertEquals(tmp, 100);
 	}
 	
 	@Test
@@ -181,14 +186,12 @@ public class ServiceConfigTest {
 		serviceConfig.saveConfig("100", "", "", "", "", "1");
 		Subject s = serviceConfig.getSubjectByid(1);
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+			if(configScoreDetail.getName().equals("attendance"))
+				assertEquals(configScoreDetail.getPercent(), 100);
+			if(!configScoreDetail.getName().equals("attendance"))
+				assertFalse(true);
 		}
-		assertTrue(configScoreDetails.get(0).getPercent() == 100);
-		assertEquals(tmp, 100);
 	}
 	
 	@Test
@@ -197,14 +200,12 @@ public class ServiceConfigTest {
 		serviceConfig.saveConfig("", "100", "", "", "", "1");
 		Subject s = serviceConfig.getSubjectByid(1);
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+			if(configScoreDetail.getName().equals("exercise"))
+				assertEquals(configScoreDetail.getPercent(), 100);
+			if(!configScoreDetail.getName().equals("exercise"))
+				assertFalse(true);
 		}
-		assertTrue(configScoreDetails.get(0).getPercent() == 100);
-		assertEquals(tmp, 100);
 	}
 	
 	@Test
@@ -213,14 +214,12 @@ public class ServiceConfigTest {
 		serviceConfig.saveConfig("", "", "100", "", "", "1");
 		Subject s = serviceConfig.getSubjectByid(1);
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+			if(configScoreDetail.getName().equals("practice"))
+				assertEquals(configScoreDetail.getPercent(), 100);
+			if(!configScoreDetail.getName().equals("practice"))
+				assertFalse(true);
 		}
-		assertTrue(configScoreDetails.get(0).getPercent() == 100);
-		assertEquals(tmp, 100);
 	}
 	
 	@Test
@@ -229,14 +228,13 @@ public class ServiceConfigTest {
 		serviceConfig.saveConfig("", "", "", "100", "", "1");
 		Subject s = serviceConfig.getSubjectByid(1);
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+			if(configScoreDetail.getName().equals("test"))
+				assertEquals(configScoreDetail.getPercent(), 100);
+			if(!configScoreDetail.getName().equals("test"))
+				assertFalse(true);
 		}
-		assertTrue(configScoreDetails.get(0).getPercent() == 100);
-		assertEquals(tmp, 100);
+		
 	}
 	
 	@Test
@@ -245,14 +243,12 @@ public class ServiceConfigTest {
 		serviceConfig.saveConfig("", "", "", "", "100", "1");
 		Subject s = serviceConfig.getSubjectByid(1);
 		List<ConfigScoreDetail> configScoreDetails = s.getConfigScore().getListConfig();
-		int tmp = 0;
 		for(ConfigScoreDetail configScoreDetail : configScoreDetails) {
-			tmp += configScoreDetail.getPercent();
-			assertTrue(configScoreDetail.getPercent() > 0);
-			assertTrue(configScoreDetail.getPercent() <= 100);
+			if(configScoreDetail.getName().equals("examFinal"))
+				assertEquals(configScoreDetail.getPercent(), 100);
+			if(!configScoreDetail.getName().equals("examFinal"))
+				assertFalse(true);
 		}
-		assertTrue(configScoreDetails.get(0).getPercent() == 100);
-		assertEquals(tmp, 100);
 	}
 	
 	

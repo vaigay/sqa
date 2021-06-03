@@ -98,7 +98,7 @@ public class UserControllerTest {
 		m.setId(1);
 		Date date = new Date(1999, 9, 9);
 		User u = new User("Hai Phamxxxx",date,c,"Ha Dong","hai123@gmail.com",m,1);
-		long before = userRepository.count();
+		User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
 		
 		MockHttpServletRequestBuilder createMessage = post("/user/saveNew")
 		        .param("fullName", u.getFullName())
@@ -111,20 +111,25 @@ public class UserControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
-		
-		long after = userRepository.count();
-		assertTrue(after - before == 1);
+	
+		User after = userRepository.findTopByOrderByIdDesc();
+		assertEquals(before.getFullName(),after.getFullName());
+		assertEquals(before.getDateOfBirth(),after.getDateOfBirth());
+		assertEquals(before.getAddress(),after.getAddress());
+		assertEquals(before.getEmail(),after.getEmail());
+		assertEquals(before.getMajor().getId(),after.getMajor().getId());
+		assertEquals(before.getCourse().getId(),after.getCourse().getId());
 	}
 	
 	@Test
 	@Transactional
 	public void testSaveEditFullName() throws Exception {
 		User u = userRepository.getOne((long) 1);
-		System.out.println(u.getId());
 		User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
 		MockHttpServletRequestBuilder createMessage = post("/saveEditUser")
 				.param("id", String.valueOf(u.getId()))
 		        .param("fullName", "abc")
+		        .param("code", u.getCode())
 		        .param("dateOfBirth", u.getDateOfBirth().toString())
 		        .param("address", u.getAddress())
 		        .param("email", u.getEmail())
@@ -135,18 +140,30 @@ public class UserControllerTest {
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
 		
+		User after = userRepository.getOne((long) 1);
+		System.out.println(before);
+		System.out.println(after);
+		assertEquals(before.getId(),after.getId());
+		assertNotEquals(before.getFullName(),after.getFullName());
+		assertEquals(before.getCode(),after.getCode() );
+		assertEquals(before.getDateOfBirth(),after.getDateOfBirth());
+		assertEquals(before.getAddress(),after.getAddress());
+		assertEquals(before.getEmail(),after.getEmail());
+		assertEquals(before.getMajor().getId(),after.getMajor().getId());
+		assertEquals(before.getCourse().getId(),after.getCourse().getId());
+		
 	}
 	
 	@Test
 	@Transactional
 	public void testSaveEditDateOfBirthName() throws Exception {
 		User u = userRepository.getOne((long) 1);
-		System.out.println(u.getId());
 		User before = new User(u.getId(),u.getFullName(),u.getCode(),u.getDateOfBirth(),u.getCourse(),u.getAddress(),u.getEmail(),u.getMajor(),u.getStatus());
 		MockHttpServletRequestBuilder createMessage = post("/saveEditUser")
 				.param("id", String.valueOf(u.getId()))
 		        .param("fullName", u.getFullName())
-		        .param("dateOfBirth", new Date(11/11/1991).toString())
+		        .param("code", u.getCode())
+		        .param("dateOfBirth", new Date(10/6/1991).toString())
 		        .param("address", u.getAddress())
 		        .param("email", u.getEmail())
 		        .param("course.id", String.valueOf(u.getCourse().getId()))
@@ -155,6 +172,16 @@ public class UserControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
+		
+		User after = userRepository.getOne((long) 1);
+		assertEquals(before.getId(),after.getId());
+		assertEquals(before.getFullName(),after.getFullName());
+		assertEquals(before.getCode(),after.getCode() );
+		assertNotEquals(before.getDateOfBirth(),after.getDateOfBirth());
+		assertEquals(before.getAddress(),after.getAddress());
+		assertEquals(before.getEmail(),after.getEmail());
+		assertEquals(before.getMajor().getId(),after.getMajor().getId());
+		assertEquals(before.getCourse().getId(),after.getCourse().getId());
 		
 	}
 	
@@ -167,6 +194,7 @@ public class UserControllerTest {
 		MockHttpServletRequestBuilder createMessage = post("/saveEditUser")
 				.param("id", String.valueOf(u.getId()))
 		        .param("fullName", u.getFullName())
+		        .param("code", u.getCode())
 		        .param("dateOfBirth",u.getDateOfBirth().toString())
 		        .param("address", "pamasd")
 		        .param("email", u.getEmail())
@@ -176,6 +204,16 @@ public class UserControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
+		
+		User after = userRepository.getOne((long) 1);
+		assertEquals(before.getId(),after.getId());
+		assertEquals(before.getFullName(),after.getFullName());
+		assertEquals(before.getCode(),after.getCode() );
+		assertEquals(before.getDateOfBirth(),after.getDateOfBirth());
+		assertNotEquals(before.getAddress(),after.getAddress());
+		assertEquals(before.getEmail(),after.getEmail());
+		assertEquals(before.getMajor().getId(),after.getMajor().getId());
+		assertEquals(before.getCourse().getId(),after.getCourse().getId());
 		
 	}
 	
@@ -197,6 +235,16 @@ public class UserControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
+		
+		User after = userRepository.getOne((long) 1);
+		assertEquals(before.getId(),after.getId());
+		assertEquals(before.getFullName(),after.getFullName());
+		assertEquals(before.getCode(),after.getCode() );
+		assertEquals(before.getDateOfBirth(),after.getDateOfBirth());
+		assertEquals(before.getAddress(),after.getAddress());
+		assertNotEquals(before.getEmail(),after.getEmail());
+		assertEquals(before.getMajor().getId(),after.getMajor().getId());
+		assertEquals(before.getCourse().getId(),after.getCourse().getId());
 		
 	}
 	
@@ -221,6 +269,16 @@ public class UserControllerTest {
 		mockMvc.perform(createMessage)
 		.andExpect(status().is3xxRedirection())
 		.andExpect(redirectedUrl("/listUser"));
+		
+		User after = userRepository.getOne((long) 1);
+		assertEquals(before.getId(),after.getId());
+		assertEquals(before.getFullName(),after.getFullName());
+		assertNotEquals(before.getCode(),after.getCode() );
+		assertEquals(before.getDateOfBirth(),after.getDateOfBirth());
+		assertEquals(before.getAddress(),after.getAddress());
+		assertEquals(before.getEmail(),after.getEmail());
+		assertNotEquals(before.getMajor().getId(),after.getMajor().getId());
+		assertEquals(before.getCourse().getId(),after.getCourse().getId());
 		
 	}
 	

@@ -40,7 +40,7 @@ public class ServiceConfig {
 	}
 	
 	@Transactional
-	public void saveConfig(String attendance,String exercise,String practice,String examFinal,String test, String idSubject ) {
+	public void saveConfig(String attendance,String exercise,String practice,String test,String examFinal, String idSubject ) {
 		ConfigScore config = new ConfigScore();
 		List<ConfigScoreDetail> listConDetails = new ArrayList<ConfigScoreDetail>();
 		addConfig("attendance",attendance,listConDetails);

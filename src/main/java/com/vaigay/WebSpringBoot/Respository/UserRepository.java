@@ -41,6 +41,8 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	List<User> findByStatus(int status);
 	
+	User findTopByOrderByIdDesc();
+	
 	@Transactional
 	@Modifying
 	@Query("UPDATE User u set u.code = :code WHERE u.id = :id")
