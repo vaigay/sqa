@@ -1,8 +1,8 @@
 # sqa Quản lý điểm PTIT
 
 Modul:
-  - CRUD user;
-  - Report user;
+  - CRUD user
+  - Report user
   - View score of class
   - Config score
 
