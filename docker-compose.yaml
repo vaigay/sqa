@@ -1,0 +1,16 @@
+version: '3.5'
+
+
+services:
+  sqa-mysql:
+    image: mysql:8.0
+    container_name: sqa-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sqa
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 123123
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password

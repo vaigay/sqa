@@ -34,8 +34,6 @@ import com.vaigay.WebSpringBoot.Respository.CourseRepository;
 import com.vaigay.WebSpringBoot.Respository.MajorRepository;
 import com.vaigay.WebSpringBoot.Respository.UserRepository;
 
-import jdk.net.SocketFlow.Status;
-import junit.framework.Assert;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;

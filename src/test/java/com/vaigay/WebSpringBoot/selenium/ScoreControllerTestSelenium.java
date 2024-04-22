@@ -11,8 +11,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.test.context.event.annotation.AfterTestClass;
-import org.testng.Assert;
-import org.testng.annotations.AfterTest;
+
 
 import java.util.List;
 
@@ -25,8 +24,9 @@ public class ScoreControllerTestSelenium {
 
 //    @Before
     public void setup() {
-    	System.setProperty("webdriver.edge.driver","msedgedriver.exe");
-		driver = new EdgeDriver();
+
+    	System.setProperty("webdriver.chrome.driver","./chromedriver_mac/chromedriver");
+		driver = new ChromeDriver();
         System.out.println("Bat Dau Test ...");
     }
 

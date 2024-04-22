@@ -6,6 +6,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static org.testng.Assert.fail;
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -28,8 +29,9 @@ public class ConfigControllerTestSelenium {
 	@BeforeClass
 	public void beforeClass() {
 		// Khởi tạo trình duyệt
-		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
-		driver = new EdgeDriver();
+		System.setProperty("webdriver.chrome.driver","./chromedriver_mac/chromedriver");
+		driver = new ChromeDriver();
+		System.out.println("Bat Dau Test ...");
 	}
 
 //Test GUI

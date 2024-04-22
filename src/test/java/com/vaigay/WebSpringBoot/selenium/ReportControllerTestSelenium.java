@@ -6,14 +6,13 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-import org.springframework.boot.test.context.SpringBootTest;
-
+import org.junit.jupiter.api.Test;
 
 
 
@@ -21,11 +20,12 @@ public class ReportControllerTestSelenium {
 	
 	WebDriver driver;
 	
-	@Before
+
+	@BeforeEach
 	public void setup() {
-		System.setProperty("webdriver.edge.driver","msedgedriver.exe");
-		driver = new EdgeDriver();
-		
+		System.setProperty("webdriver.chrome.driver","./chromedriver_mac/chromedriver");
+		driver = new ChromeDriver();
+		System.out.println("Bat Dau Test ...");
 	}
 	
 	
@@ -33,7 +33,7 @@ public class ReportControllerTestSelenium {
 	@Test// xem trang bao cao
 	public void getReportPage() throws InterruptedException {
 		driver.get("http://localhost:8080/report");
-	
+
 
 		List<WebElement> course = driver.findElements(By.xpath("//*[@id=\"reportType\"]/tbody/tr/td[2]/select/option"));
 		assertEquals(course.size(), 4);
@@ -48,7 +48,9 @@ public class ReportControllerTestSelenium {
 		
 		WebElement tableTitle = driver.findElement(By.xpath("/html/body/div[1]/div[2]/h1"));
 		assertEquals(tableTitle.getText(), "Danh sách sinh viên");// kiem tra tieu de cua bang du lieu
+
 	}
+
 	
 	@Test// xem bao cao tong
 	public void getTotalReport() throws InterruptedException {
